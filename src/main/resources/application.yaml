@@ -1,0 +1,12 @@
+#spring.application.name=study-project
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bin_text
+    username: root
+    password: 1234
+
+mybatis:
+  type-aliases-package: com.neroll.pojo
+  mapper-locations: classpath:com/neroll/mapper/*Mapper.xml
