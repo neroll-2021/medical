@@ -1,10 +1,5 @@
 package com.neroll.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
 public class Result<T> {
     // success: 200
     // error: 100
@@ -13,6 +8,12 @@ public class Result<T> {
     private String message;
 
     private T data;
+
+    public Result(Integer code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
 
     public static <T> Result<T> success() {
         return Result.success("success");
@@ -36,5 +37,29 @@ public class Result<T> {
 
     public static <T> Result<T> error(String message, T data) {
         return new Result<>(100, message, data);
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }
