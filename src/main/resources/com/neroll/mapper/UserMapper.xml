@@ -2,6 +2,19 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neroll.mapper.UserMapper">
 
+<!-- 将数据库字段名映射为类的字段名 -->
+<mapper namespace="com.neroll.mapper.UserMapper">
+    <resultMap id="userMap" type="com.neroll.pojo.User">
+        <result column="realname" property="realName"/>
+        <result column="pwd" property="password"/>
+        <result column="phonenumber" property="phoneNumber"/>
+        <result column="upatetime" property="updateTime"/>
+        <result column="createtime" property="createTime"/>
+    </resultMap>
+
+    <!-- 根据用户名和密码查找用户 -->
+    <select id="getUserByNameAndPassword" resultMap="userMap">
+        select * from account where uname = #{username} and pwd = #{password}
+    </select>
 </mapper>

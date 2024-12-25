@@ -1,10 +1,12 @@
 package com.neroll.mapper;
 
+import com.neroll.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserMapper {
 
     // 根据用户名和密码获取用户
-    void getUserByNameAndPassword(String username, String password);
+    User getUserByNameAndPassword(@Param("username") String username, @Param("password") String password);
 }

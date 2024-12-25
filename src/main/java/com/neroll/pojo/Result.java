@@ -1,8 +1,7 @@
 package com.neroll.pojo;
 
 public class Result<T> {
-    // success: 200
-    // error: 100
+    // 200 表示成功，100 表示失败
     private Integer code;
 
     private String message;
