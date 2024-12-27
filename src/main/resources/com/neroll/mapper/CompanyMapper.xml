@@ -19,4 +19,10 @@
         values (#{name}, #{phone}, #{updateTime}, #{createTime});
     </insert>
 
+    <update id="updateCompany">
+        update drugcompany
+            set company_name = #{company.name}, company_phone = #{company.phone}, updatetime = #{company.updateTime}
+            where company_id = #{id}
+    </update>
+
 </mapper>

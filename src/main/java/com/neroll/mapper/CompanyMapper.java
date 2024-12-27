@@ -11,4 +11,6 @@ public interface CompanyMapper {
 
     int saveCompany(Company company);
 
+    int updateCompany(@Param("id") Integer id, @Param("company") Company company);
+
 }

@@ -28,4 +28,17 @@ public class CompanyService {
             return Result.error("添加失败");
         return Result.success("添加成功");
     }
+
+    public Result<Company> updateCompany(Integer id, Company company) {
+        boolean exist = mapper.getCompanyById(id) != null;
+        if (!exist)
+            return Result.error("公司不存在");
+
+        company.setUpdateTime(LocalDateTime.now());
+
+        int line = mapper.updateCompany(id, company);
+        if (line == 0)
+            return Result.error("更新失败");
+        return Result.success("更新成功");
+    }
 }

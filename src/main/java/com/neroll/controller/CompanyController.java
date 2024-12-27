@@ -30,4 +30,18 @@ public class CompanyController {
             return Result.error("公司电话不能为空");
         return service.addCompany(company);
     }
+
+    @PostMapping("/{id}")
+    public Result<Company> updateCompany(@PathVariable Integer id, @RequestBody Company company) {
+        if (id == null)
+            return Result.error("公司 id 不能为空");
+        if (company == null)
+            return Result.error("公司数据不能为空");
+        if (!StringUtils.hasText(company.getName()))
+            return Result.error("公司名称不能为空");
+        if (!StringUtils.hasText(company.getPhone()))
+            return Result.error("公司电话不能为空");
+
+        return service.updateCompany(id, company);
+    }
 }
