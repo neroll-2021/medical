@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neroll.mapper.CompanyMapper">
+    <resultMap id="companyMap" type="com.neroll.pojo.Company">
+        <result column="company_id" property="id"/>
+        <result column="company_name" property="name"/>
+        <result column="company_phone" property="phone"/>
+    </resultMap>
+
+    <select id="getCompanyById" resultMap="companyMap">
+        select * from drugcompany where company_id = #{id}
+    </select>
+
+</mapper>
