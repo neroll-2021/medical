@@ -9,4 +9,6 @@ public interface CompanyMapper {
 
     Company getCompanyById(@Param("id") Integer id);
 
+    int saveCompany(Company company);
+
 }

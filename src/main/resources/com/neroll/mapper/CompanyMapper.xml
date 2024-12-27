@@ -14,4 +14,9 @@
         select * from drugcompany where company_id = #{id}
     </select>
 
+    <insert id="saveCompany">
+        insert into drugcompany (company_name, company_phone, updatetime, createtime)
+        values (#{name}, #{phone}, #{updateTime}, #{createTime});
+    </insert>
+
 </mapper>
