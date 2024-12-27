@@ -21,4 +21,11 @@
             where dl.name like #{level}
     </select>
 
+    <insert id="saveDoctor">
+        insert into
+            doctor(name, age, sex, level_id, phone, type_id, hospital, updatetime, createtime, account_id)
+        VALUE
+            (#{name}, #{age}, #{sex}, #{levelId}, #{phone}, #{typeId}, #{hospital}, #{updateTime}, #{createTime}, #{accountId})
+    </insert>
+
 </mapper>

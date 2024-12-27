@@ -1,12 +1,11 @@
 package com.neroll.controller;
 
+import com.neroll.pojo.Doctor;
 import com.neroll.pojo.DoctorInfo;
 import com.neroll.pojo.Result;
 import com.neroll.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/doctor")
@@ -26,5 +25,13 @@ public class DoctorController {
             return Result.error("页大小错误");
 
         return service.searchDoctorByLevel(pn, size, keyword);
+    }
+
+    @PostMapping
+    public Result<Doctor> addDoctor(@RequestBody Doctor doctor) {
+        if (doctor == null)
+            return Result.error("医师数据不能为空");
+
+        return service.addDoctor(doctor);
     }
 }

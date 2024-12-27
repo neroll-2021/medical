@@ -15,4 +15,6 @@ public interface DoctorMapper {
                                  @Param("level") String level);
 
     int findDoctorCountByLevel(@Param("level") String level);
+
+    int saveDoctor(Doctor doctor);
 }

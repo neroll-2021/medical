@@ -17,4 +17,8 @@
     <select id="getUserByNameAndPassword" resultMap="userMap">
         select * from account where uname = #{username} and pwd = #{password}
     </select>
+
+    <select id="getUserByAccountId" resultMap="userMap">
+        select * from account where id = #{id}
+    </select>
 </mapper>
