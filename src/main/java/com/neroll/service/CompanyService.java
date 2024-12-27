@@ -41,4 +41,15 @@ public class CompanyService {
             return Result.error("更新失败");
         return Result.success("更新成功");
     }
+
+    public Result<Company> deleteCompanyById(Integer id) {
+        boolean exist = mapper.getCompanyById(id) != null;
+        if (!exist)
+            return Result.error("公司不存在");
+
+        int line = mapper.deleteCompanyById(id);
+        if (line == 0)
+            return Result.error("删除失败");
+        return Result.success("删除成功");
+    }
 }

@@ -44,4 +44,11 @@ public class CompanyController {
 
         return service.updateCompany(id, company);
     }
+
+    @DeleteMapping("/{id}")
+    public Result<Company> deleteCompany(@PathVariable Integer id) {
+        if (id == null)
+            return Result.error("公司 id 不能为空");
+        return service.deleteCompanyById(id);
+    }
 }

@@ -25,4 +25,8 @@
             where company_id = #{id}
     </update>
 
+    <delete id="deleteCompanyById">
+        delete from drugcompany where company_id = #{id}
+    </delete>
+
 </mapper>

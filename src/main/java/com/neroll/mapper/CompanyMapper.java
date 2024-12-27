@@ -13,4 +13,6 @@ public interface CompanyMapper {
 
     int updateCompany(@Param("id") Integer id, @Param("company") Company company);
 
+    int deleteCompanyById(@Param("id") Integer id);
+
 }
