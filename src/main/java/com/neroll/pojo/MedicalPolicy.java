@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public class MedicalPolicy {
     private Integer id;
-    public String title;
+    private String title;
     private String message;
-    private City city;
+    private Integer cityId;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 
@@ -34,12 +34,12 @@ public class MedicalPolicy {
         this.message = message;
     }
 
-    public City getCity() {
-        return city;
+    public Integer getCityId() {
+        return cityId;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 
     public LocalDateTime getCreateTime() {
@@ -64,7 +64,7 @@ public class MedicalPolicy {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", message='" + message + '\'' +
-                ", city=" + city +
+                ", cityId=" + cityId +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

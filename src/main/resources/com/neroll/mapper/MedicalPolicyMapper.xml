@@ -5,7 +5,7 @@
 
 <mapper namespace="com.neroll.mapper.MedicalPolicyMapper">
 
-    <resultMap id="medicalPolicyMap" type="com.neroll.pojo.MedicalPolicy">
+    <resultMap id="displayedMedicalPolicyMap" type="com.neroll.pojo.DisplayedMedicalPolicy">
         <result column="id" property="id"/>
         <result column="title" property="title"/>
         <result column="message" property="message"/>
@@ -20,16 +20,27 @@
         </association>
     </resultMap>
 
-    <select id="getMedicalPolicyByPage" resultMap="medicalPolicyMap">
+    <resultMap id="medicalPolicyMap" type="com.neroll.pojo.MedicalPolicy">
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="getMedicalPolicyByPage" resultMap="displayedMedicalPolicyMap">
         select m.id, m.title, m.message, ch.name as cityName, ch2.name as provinceName,
             c.city_id as cid,  c.city_number as number, m.create_time, m.update_time
             from medical_policy as m left outer join city c on m.city_id = c.city_id
             left outer join china as ch on c.city_number = ch.id
             left outer join china as ch2 on ch.parent_id = ch2.id
+            limit #{offset}, #{count}
     </select>
 
     <select id="getMedicalPolicyNum" resultType="int">
         select count(*) from medical_policy
     </select>
+
+    <insert id="saveMedicalPolicy">
+        insert into medical_policy (title, message, city_id, create_time, update_time)
+        values (#{title}, #{message}, #{cityId}, #{createTime}, #{updateTime});
+    </insert>
 
 </mapper>
