@@ -14,4 +14,9 @@
         select * from company_policy where id = #{id}
     </select>
 
+    <insert id="savePolicy">
+        insert into company_policy (title, message, company_id, create_time, update_time)
+        values (#{title}, #{message}, #{companyId}, #{createTime}, #{updateTime});
+    </insert>
+
 </mapper>

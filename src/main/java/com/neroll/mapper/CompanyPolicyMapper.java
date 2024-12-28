@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Param;
 public interface CompanyPolicyMapper {
 
     CompanyPolicy getPolicyById(@Param("id") Integer id);
+
+    int savePolicy(CompanyPolicy policy);
 }
