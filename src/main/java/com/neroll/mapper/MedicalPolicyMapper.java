@@ -1,0 +1,15 @@
+package com.neroll.mapper;
+
+import com.neroll.pojo.MedicalPolicy;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+@Mapper
+public interface MedicalPolicyMapper {
+
+    int getMedicalPolicyNum();
+
+    List<MedicalPolicy> getMedicalPolicyByPage(@Param("offset") Integer offset, @Param("count") Integer count);
+}

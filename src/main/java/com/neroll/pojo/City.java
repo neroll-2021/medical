@@ -39,4 +39,14 @@ public class City {
     public void setNumber(Integer number) {
         this.number = number;
     }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", cityName='" + cityName + '\'' +
+                ", provinceName='" + provinceName + '\'' +
+                ", number=" + number +
+                '}';
+    }
 }
