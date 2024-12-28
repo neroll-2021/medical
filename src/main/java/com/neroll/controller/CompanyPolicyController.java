@@ -54,4 +54,12 @@ public class CompanyPolicyController {
 
         return service.updateCompanyPolicy(id, policy);
     }
+
+    @DeleteMapping("/{id}")
+    public Result<CompanyPolicy> deleteCompanyPolicy(@PathVariable Integer id) {
+        if (id == null)
+            return Result.error("政策 id 不能为空");
+
+        return service.deleteCompanyPolicyById(id);
+    }
 }

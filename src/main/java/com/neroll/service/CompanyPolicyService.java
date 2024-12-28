@@ -53,4 +53,11 @@ public class CompanyPolicyService {
             return Result.error("政策不存在");
         return Result.success("修改成功");
     }
+
+    public Result<CompanyPolicy> deleteCompanyPolicyById(Integer id) {
+        int line = policyMapper.deletePolicyById(id);
+        if (line == 0)
+            return Result.error("政策不存在");
+        return Result.success("删除成功");
+    }
 }

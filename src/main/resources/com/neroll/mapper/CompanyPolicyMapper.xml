@@ -26,4 +26,8 @@
         where id = #{id}
     </update>
 
+    <delete id="deletePolicyById">
+        delete from company_policy where id = #{id}
+    </delete>
+
 </mapper>
