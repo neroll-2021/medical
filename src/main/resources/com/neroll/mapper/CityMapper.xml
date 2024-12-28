@@ -27,4 +27,8 @@
         delete from city where city_id = #{id}
     </delete>
 
+    <select id="getCityById" resultMap="cityMap">
+        select * from city where city_id = #{id}
+    </select>
+
 </mapper>

@@ -2,11 +2,11 @@ package com.neroll.pojo;
 
 import java.time.LocalDateTime;
 
-public class City {
+public class DisplayedMedicalPolicy {
     private Integer id;
-    private String cityName;
-    private String provinceName;
-    private Integer number; // 身份证开头 6 位
+    public String title;
+    private String message;
+    private City city;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 
@@ -18,28 +18,28 @@ public class City {
         this.id = id;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getProvinceName() {
-        return provinceName;
+    public String getMessage() {
+        return message;
     }
 
-    public void setProvinceName(String provinceName) {
-        this.provinceName = provinceName;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public Integer getNumber() {
-        return number;
+    public City getCity() {
+        return city;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public LocalDateTime getCreateTime() {
@@ -60,11 +60,13 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" +
+        return "MedicalPolicy{" +
                 "id=" + id +
-                ", cityName='" + cityName + '\'' +
-                ", provinceName='" + provinceName + '\'' +
-                ", number=" + number +
+                ", title='" + title + '\'' +
+                ", message='" + message + '\'' +
+                ", city=" + city +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }
