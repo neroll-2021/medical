@@ -1,7 +1,7 @@
 package com.neroll.controller;
 
 import com.neroll.pojo.Doctor;
-import com.neroll.pojo.DoctorInfo;
+import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import com.neroll.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class DoctorController {
     private DoctorService service;
 
     @GetMapping
-    public Result<DoctorInfo> searchDoctorByLevel(Integer pn, Integer size, String keyword) {
+    public Result<PageInfo<Doctor>> searchDoctorByLevel(Integer pn, Integer size, String keyword) {
         if (pn == null)
             return Result.error("页码不能为空");
         if (pn <= 0)

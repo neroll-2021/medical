@@ -1,10 +1,9 @@
 package com.neroll.controller;
 
 import com.neroll.pojo.City;
-import com.neroll.pojo.CityInfo;
+import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import com.neroll.service.CityService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,7 @@ public class CityController {
     private CityService service;
 
     @GetMapping
-    public Result<CityInfo> getCitiesByPage(@RequestParam("pn") Integer pageNum,
+    public Result<PageInfo<City>> getCitiesByPage(@RequestParam("pn") Integer pageNum,
                                             @RequestParam("size") Integer pageSize,
                                             @RequestParam(value = "keyword", defaultValue = "") String keyword) {
         if (pageNum == null)

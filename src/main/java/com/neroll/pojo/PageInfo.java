@@ -2,9 +2,9 @@ package com.neroll.pojo;
 
 import java.util.List;
 
-public class CityInfo {
+public class PageInfo<T> {
     private Integer total;
-    private List<City> list;
+    private List<T> list;
 
     public Integer getTotal() {
         return total;
@@ -14,11 +14,11 @@ public class CityInfo {
         this.total = total;
     }
 
-    public List<City> getList() {
+    public List<T> getList() {
         return list;
     }
 
-    public void setList(List<City> list) {
+    public void setList(List<T> list) {
         this.list = list;
     }
 }

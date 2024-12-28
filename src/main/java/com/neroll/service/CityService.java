@@ -2,7 +2,7 @@ package com.neroll.service;
 
 import com.neroll.mapper.CityMapper;
 import com.neroll.pojo.City;
-import com.neroll.pojo.CityInfo;
+import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class CityService {
     @Autowired
     private CityMapper mapper;
 
-    public Result<CityInfo> getCitiesByPage(Integer pageNum, Integer pageSize, String keyword) {
+    public Result<PageInfo<City>> getCitiesByPage(Integer pageNum, Integer pageSize, String keyword) {
         if (pageNum <= 0)
             return Result.error("页码错误");
         if (pageSize <= 0)
@@ -31,7 +31,8 @@ public class CityService {
 
         int total = mapper.getCityNum();
 
-        CityInfo info = new CityInfo();
+//        CityInfo info = new CityInfo();
+        PageInfo<City> info = new PageInfo<>();
         info.setTotal(total);
         info.setList(cities);
         return Result.success("查询成功", info);

@@ -2,10 +2,7 @@ package com.neroll.service;
 
 import com.neroll.mapper.DoctorMapper;
 import com.neroll.mapper.UserMapper;
-import com.neroll.pojo.Doctor;
-import com.neroll.pojo.DoctorInfo;
-import com.neroll.pojo.Result;
-import com.neroll.pojo.User;
+import com.neroll.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +17,7 @@ public class DoctorService {
     @Autowired
     private UserMapper userMapper;
 
-    public Result<DoctorInfo> searchDoctorByLevel(Integer pageNumber, Integer pageSize, String level) {
+    public Result<PageInfo<Doctor>> searchDoctorByLevel(Integer pageNumber, Integer pageSize, String level) {
         int offset = (pageNumber - 1) * pageSize;
         int count = pageSize;
 
@@ -32,7 +29,8 @@ public class DoctorService {
 
         int total = doctorMapper.findDoctorCountByLevel(searchString);
 
-        DoctorInfo info = new DoctorInfo();
+//        DoctorInfo info = new DoctorInfo();
+        PageInfo<Doctor> info = new PageInfo<>();
         info.setTotal(total);
         info.setList(doctors);
 
