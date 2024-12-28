@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neroll.mapper.SaleMapper">
+    <resultMap id="saleMap" type="com.neroll.pojo.Sale">
+        <result column="sale_id" property="saleId"/>
+        <result column="sale_name" property="saleName"/>
+        <result column="sale_phone" property="salePhone"/>
+        <result column="createtime" property="createTime"/>
+        <result column="updatetime" property="updateTime"/>
+    </resultMap>
+    <select id="getSaleByPage" resultMap="saleMap">
+        select * from sale limit #{offset}, #{count}
+    </select>
+    <select id="getSaleCount" resultType="Integer">
+        select count( * ) from sale
+    </select>
+</mapper>
