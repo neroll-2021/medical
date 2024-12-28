@@ -29,6 +29,11 @@ public class UserService {
         if (user == null)
             return Result.error("用户名或密码错误");
 
+        // 生成 token
+
+        // 在 redis 中添加 token 信息
+        // RedisUtil.set("medical:login:token", token, 60);
+
         return Result.success("登录成功", user.getUname());
     }
 }
