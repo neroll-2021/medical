@@ -65,4 +65,11 @@ public class MedicalPolicyService {
 
         return Result.success("修改成功");
     }
+
+    public Result<MedicalPolicy> deletePolicyById(Integer id) {
+        int line = policyMapper.deleteMedicalPolicyById(id);
+        if (line == 0)
+            return Result.error("医保政策不存在");
+        return Result.success("删除成功");
+    }
 }

@@ -52,4 +52,11 @@ public class MedicalPolicyController {
             return Result.error("城市 id 不能为空");
         return service.updatePolicy(id, policy);
     }
+
+    @DeleteMapping("/{id}")
+    public Result<MedicalPolicy> deletePolicy(@PathVariable Integer id) {
+        if (id == null)
+            return Result.error("医保政策 id 不能为空");
+        return service.deletePolicyById(id);
+    }
 }

@@ -48,4 +48,10 @@
         where id = #{id}
     </update>
 
+    <delete id="deleteMedicalPolicyById">
+        delete
+        from medical_policy
+        where id = #{id};
+    </delete>
+
 </mapper>

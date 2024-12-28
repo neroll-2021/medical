@@ -17,4 +17,6 @@ public interface MedicalPolicyMapper {
     int saveMedicalPolicy(MedicalPolicy policy);
 
     int updateMedicalPolicy(MedicalPolicy policy);
+
+    int deleteMedicalPolicyById(@Param("id") Integer id);
 }
