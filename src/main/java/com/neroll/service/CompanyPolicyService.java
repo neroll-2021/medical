@@ -40,4 +40,17 @@ public class CompanyPolicyService {
             return Result.error("添加失败");
         return Result.success("添加成功");
     }
+
+    public Result<CompanyPolicy> updateCompanyPolicy(Integer id, CompanyPolicy policy) {
+        Company company = companyMapper.getCompanyById(policy.getCompanyId());
+        if (company == null)
+            return Result.error("公司不存在");
+
+        policy.setUpdateTime(LocalDateTime.now());
+
+        int line = policyMapper.updatePolicy(id, policy);
+        if (line == 0)
+            return Result.error("政策不存在");
+        return Result.success("修改成功");
+    }
 }

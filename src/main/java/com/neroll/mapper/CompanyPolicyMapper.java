@@ -10,4 +10,6 @@ public interface CompanyPolicyMapper {
     CompanyPolicy getPolicyById(@Param("id") Integer id);
 
     int savePolicy(CompanyPolicy policy);
+
+    int updatePolicy(@Param("id") Integer id, @Param("policy") CompanyPolicy policy);
 }

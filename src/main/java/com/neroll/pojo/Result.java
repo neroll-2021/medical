@@ -1,5 +1,7 @@
 package com.neroll.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Result<T> {
     // 200 表示成功，100 表示失败
     private Integer code;
@@ -12,6 +14,16 @@ public class Result<T> {
         this.code = code;
         this.message = message;
         this.data = data;
+    }
+
+    @JsonIgnore
+    public boolean isSuccess() {
+        return code == 200;
+    }
+
+    @JsonIgnore
+    public boolean isError() {
+        return code == 100;
     }
 
     public static <T> Result<T> success() {

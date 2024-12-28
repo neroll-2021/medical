@@ -19,4 +19,11 @@
         values (#{title}, #{message}, #{companyId}, #{createTime}, #{updateTime});
     </insert>
 
+    <update id="updatePolicy">
+        update company_policy
+        set title = #{policy.title}, message = #{policy.message},
+            company_id = #{policy.companyId}, update_time = #{policy.updateTime}
+        where id = #{id}
+    </update>
+
 </mapper>
