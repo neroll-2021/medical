@@ -22,4 +22,9 @@
     <select id="getCityNum" resultType="int">
         select count(*) from city
     </select>
+
+    <delete id="deleteCityById">
+        delete from city where city_id = #{id}
+    </delete>
+
 </mapper>

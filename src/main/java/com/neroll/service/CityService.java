@@ -36,4 +36,11 @@ public class CityService {
         info.setList(cities);
         return Result.success("查询成功", info);
     }
+
+    public Result<City> deleteCityById(Integer id) {
+        int line = mapper.deleteCityById(id);
+        if (line == 0)
+            return Result.error("城市不存在");
+        return Result.success("删除成功");
+    }
 }

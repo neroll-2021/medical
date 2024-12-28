@@ -14,4 +14,6 @@ public interface CityMapper {
                                @Param("keyword") String keyword);
 
     int getCityNum();
+
+    int deleteCityById(@Param("id") Integer id);
 }
