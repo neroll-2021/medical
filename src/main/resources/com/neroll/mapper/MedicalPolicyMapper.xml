@@ -43,4 +43,9 @@
         values (#{title}, #{message}, #{cityId}, #{createTime}, #{updateTime});
     </insert>
 
+    <update id="updateMedicalPolicy">
+        update medical_policy set title = #{title}, message = #{message}, city_id = #{cityId}, update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
 </mapper>

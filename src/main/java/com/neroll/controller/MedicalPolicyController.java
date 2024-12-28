@@ -37,4 +37,19 @@ public class MedicalPolicyController {
             return Result.error("城市 id 不能为空");
         return service.addPolicy(policy);
     }
+
+    @PutMapping("/{id}")
+    public Result<MedicalPolicy> updatePolicy(@PathVariable Integer id, @RequestBody MedicalPolicy policy) {
+        if (id == null)
+            return Result.error("医保政策 id 不能为空");
+        if (policy == null)
+            return Result.error("医保政策数据不能为空");
+        if (!StringUtils.hasText(policy.getTitle()))
+            return Result.error("医保政策标题不能为空");
+        if (!StringUtils.hasText(policy.getMessage()))
+            return Result.error("医保政策内容不能为空");
+        if (policy.getCityId() == null)
+            return Result.error("城市 id 不能为空");
+        return service.updatePolicy(id, policy);
+    }
 }

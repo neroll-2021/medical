@@ -15,4 +15,6 @@ public interface MedicalPolicyMapper {
     List<DisplayedMedicalPolicy> getMedicalPolicyByPage(@Param("offset") Integer offset, @Param("count") Integer count);
 
     int saveMedicalPolicy(MedicalPolicy policy);
+
+    int updateMedicalPolicy(MedicalPolicy policy);
 }

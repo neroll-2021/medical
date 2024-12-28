@@ -50,4 +50,19 @@ public class MedicalPolicyService {
             return Result.error("添加失败");
         return Result.success("添加成功");
     }
+
+    public Result<MedicalPolicy> updatePolicy(Integer id, MedicalPolicy policy) {
+        policy.setId(id);
+        policy.setUpdateTime(LocalDateTime.now());
+
+        City city = cityMapper.getCityById(policy.getCityId());
+        if (city == null)
+            return Result.error("城市不存在");
+
+        int line = policyMapper.updateMedicalPolicy(policy);
+        if (line == 0)
+            return Result.error("医保政策不存在");
+
+        return Result.success("修改成功");
+    }
 }
