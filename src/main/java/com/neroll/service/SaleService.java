@@ -45,4 +45,14 @@ public class SaleService {
         }
         return Result.success("添加成功");
     }
+
+    // 修改销售地点信息
+    public Result<Sale> updateSale(Sale sale) {
+        sale.setUpdateTime(LocalDateTime.now());
+        int line = saleMapper.updateSale(sale);
+        if (line == 0) {
+            return Result.error("修改失败");
+        }
+        return Result.success("修改成功");
+    }
 }

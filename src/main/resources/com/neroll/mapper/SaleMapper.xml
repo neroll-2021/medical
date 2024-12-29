@@ -23,4 +23,8 @@
         (#{saleName}, #{salePhone}, #{createTime}, #{updateTime}, #{lng}, #{lat}, #{address})
 
     </insert>
+    <update id="updateSale">
+        update sale set sale_name=#{saleName},sale_phone=#{salePhone},address=#{address},lng=#{lng},lat=#{lat}
+        where sale_id=#{saleId}
+    </update>
 </mapper>

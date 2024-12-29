@@ -14,24 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class SaleController {
     @Autowired
     private SaleService saleService;
-
-    @GetMapping
-    public Result<PageInfo<Sale>> findSaleByPage(@RequestParam("pn") Integer pageNumber, @RequestParam("size") Integer pageSize) {
-        if (pageNumber == null) {
-            return Result.error("页码不能为空");
-        }
-        if (pageSize == null) {
-            return Result.error("页大小不能为空");
-        }
-        return saleService.findSaleByPage(pageNumber, pageSize);
-    }
-
-    @PostMapping
-    public Result<Sale> addMaterial(@RequestBody Sale sale) {
+    private Result<Sale> checkNonEmpty(Sale sale){
         if (sale == null) {
             return Result.error("销售地点数据不能为空");
         }
-        // 非空校验
         if (!StringUtils.hasText(sale.getSaleName())) {
             return Result.error("销售名称不能为空");
         }
@@ -47,7 +33,37 @@ public class SaleController {
         if (sale.getLat() == null) {
             return Result.error("Lat不能为空");
         }
+        return Result.success();
+    }
+
+    @GetMapping
+    public Result<PageInfo<Sale>> findSaleByPage(@RequestParam("pn") Integer pageNumber, @RequestParam("size") Integer pageSize) {
+        if (pageNumber == null) {
+            return Result.error("页码不能为空");
+        }
+        if (pageSize == null) {
+            return Result.error("页大小不能为空");
+        }
+        return saleService.findSaleByPage(pageNumber, pageSize);
+    }
+
+    @PostMapping
+    public Result<Sale> addMaterial(@RequestBody Sale sale) {
+        Result<Sale> checkResult = checkNonEmpty(sale);
+        if(checkResult.isError())
+            return checkResult;
+
+
         return saleService.addSale(sale);
+
+    }
+    @PutMapping("/{id}")
+    public Result<Sale> updateSale(@PathVariable Long id, @RequestBody Sale sale){
+        Result<Sale> checkResult = checkNonEmpty(sale);
+        if(checkResult.isError())
+            return checkResult;
+        sale.setSaleId(id);
+        return saleService.updateSale(sale);
 
     }
 

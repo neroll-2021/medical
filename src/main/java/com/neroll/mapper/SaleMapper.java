@@ -16,4 +16,6 @@ public interface SaleMapper {
     Integer getSaleCount();
 
     Integer saveSale(Sale sale);
+
+    Integer updateSale(Sale sale);
 }
