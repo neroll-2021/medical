@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class SaleController {
     @Autowired
     private SaleService saleService;
-    private Result<Sale> checkNonEmpty(Sale sale){
+
+    private Result<Sale> checkNonEmpty(Sale sale) {
         if (sale == null) {
             return Result.error("销售地点数据不能为空");
         }
@@ -50,21 +51,26 @@ public class SaleController {
     @PostMapping
     public Result<Sale> addMaterial(@RequestBody Sale sale) {
         Result<Sale> checkResult = checkNonEmpty(sale);
-        if(checkResult.isError())
+        if (checkResult.isError())
             return checkResult;
 
 
         return saleService.addSale(sale);
 
     }
+
     @PutMapping("/{id}")
-    public Result<Sale> updateSale(@PathVariable Long id, @RequestBody Sale sale){
+    public Result<Sale> updateSale(@PathVariable Long id, @RequestBody Sale sale) {
         Result<Sale> checkResult = checkNonEmpty(sale);
-        if(checkResult.isError())
+        if (checkResult.isError())
             return checkResult;
         sale.setSaleId(id);
         return saleService.updateSale(sale);
+    }
 
+    @DeleteMapping("/{id}")
+    public Result<Sale> deleteSaleById(@PathVariable Long id) {
+        return saleService.deleteSale(id);
     }
 
 }

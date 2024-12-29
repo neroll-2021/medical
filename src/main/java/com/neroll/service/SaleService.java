@@ -55,4 +55,13 @@ public class SaleService {
         }
         return Result.success("修改成功");
     }
+
+    // 删除销售地点
+    public Result<Sale> deleteSale(Long id) {
+        int line = saleMapper.deleteSaleById(id);
+        if (line == 0) {
+            return Result.error("删除失败");
+        }
+        return Result.success("删除成功");
+    }
 }

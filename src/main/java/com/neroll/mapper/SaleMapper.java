@@ -18,4 +18,6 @@ public interface SaleMapper {
     Integer saveSale(Sale sale);
 
     Integer updateSale(Sale sale);
+
+    Integer deleteSaleById(Long id);
 }

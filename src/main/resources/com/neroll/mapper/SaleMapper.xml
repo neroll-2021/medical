@@ -27,4 +27,7 @@
         update sale set sale_name=#{saleName},sale_phone=#{salePhone},address=#{address},lng=#{lng},lat=#{lat}
         where sale_id=#{saleId}
     </update>
+    <delete id="deleteSaleById">
+        delete from sale where sale_id=#{saleId}
+    </delete>
 </mapper>
