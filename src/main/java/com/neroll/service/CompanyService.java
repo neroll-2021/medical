@@ -2,11 +2,13 @@ package com.neroll.service;
 
 import com.neroll.mapper.CompanyMapper;
 import com.neroll.pojo.Company;
+import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class CompanyService {
@@ -51,5 +53,26 @@ public class CompanyService {
         if (line == 0)
             return Result.error("删除失败");
         return Result.success("删除成功");
+    }
+
+    public Result<PageInfo<Company>> findCompaniesByNameLike(Integer pageNum, Integer pageSize, String name) {
+        if (pageNum <= 0)
+            return Result.error("页码错误");
+        if (pageSize <= 0)
+            return Result.error("页大小错误");
+
+        int offset = (pageNum - 1) * pageSize;
+        int count = pageSize;
+        String searchText = "%" + name + "%";
+        List<Company> companies = mapper.getCompaniesByNameLike(offset, count, searchText);
+        if (companies == null)
+            return Result.error("查询失败");
+
+        int total = mapper.getCompanyTotalCount();
+
+        PageInfo<Company> info = new PageInfo<>();
+        info.setTotal(total);
+        info.setList(companies);
+        return Result.success("查询成功", info);
     }
 }

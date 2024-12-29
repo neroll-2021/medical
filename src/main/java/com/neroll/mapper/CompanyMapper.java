@@ -4,6 +4,8 @@ import com.neroll.pojo.Company;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface CompanyMapper {
 
@@ -14,5 +16,11 @@ public interface CompanyMapper {
     int updateCompany(@Param("id") Integer id, @Param("company") Company company);
 
     int deleteCompanyById(@Param("id") Integer id);
+
+    List<Company> getCompaniesByNameLike(@Param("offset") Integer offset,
+                                         @Param("count") Integer count,
+                                         @Param("name") String name);
+
+    int getCompanyTotalCount();
 
 }
