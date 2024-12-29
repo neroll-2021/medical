@@ -16,4 +16,11 @@
     <select id="getSaleCount" resultType="Integer">
         select count( * ) from sale
     </select>
+    <insert id="saveSale">
+        insert into
+            sale(sale_name, sale_phone, createtime, updatetime, lng, lat, address)
+        VALUES
+        (#{saleName}, #{salePhone}, #{createTime}, #{updateTime}, #{lng}, #{lat}, #{address})
+
+    </insert>
 </mapper>

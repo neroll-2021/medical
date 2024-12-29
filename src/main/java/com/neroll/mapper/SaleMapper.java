@@ -10,7 +10,10 @@ import java.util.List;
 public interface SaleMapper {
     // 根据分页查询销售地点
     List<Sale> getSaleByPage(@Param("offset") Integer offset,
-                            @Param("count") Integer count
+                             @Param("count") Integer count
     );
+
     Integer getSaleCount();
+
+    Integer saveSale(Sale sale);
 }
