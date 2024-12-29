@@ -29,4 +29,12 @@
         delete from drugcompany where company_id = #{id}
     </delete>
 
+    <select id="getCompaniesByNameLike" resultMap="companyMap">
+        select * from drugcompany where company_name like #{name} limit #{offset}, #{count}
+    </select>
+
+    <select id="getCompanyTotalCount" resultType="int">
+        select count(*) from drugcompany
+    </select>
+
 </mapper>

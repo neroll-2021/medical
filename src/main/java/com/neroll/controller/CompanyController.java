@@ -1,6 +1,7 @@
 package com.neroll.controller;
 
 import com.neroll.pojo.Company;
+import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import com.neroll.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,14 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyController {
     @Autowired
     private CompanyService service;
+
+    @GetMapping
+    public Result<PageInfo<Company>> getCompaniesByNameLike(@RequestParam("pn") Integer pageNum,
+                                                            @RequestParam("size") Integer pageSize,
+                                                            @RequestParam(value = "keyword", defaultValue = "")
+                                                                    String name) {
+        return service.findCompaniesByNameLike(pageNum, pageSize, name);
+    }
 
     @GetMapping("/{id}")
     public Result<Company> findCompanyById(@PathVariable Integer id) {
