@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neroll.mapper.DrugMapper">
+    <resultMap id="drugMap" type="com.neroll.pojo.Drug">
+        <result column="drug_id" property="drugId"/>
+        <result column="drug_name" property="drugName"/>
+        <result column="drug_info" property="drugInfo"/>
+        <result column="drug_effect" property="drugEffect"/>
+        <result column="drug_img" property="drugImg"/>
+        <result column="createtime" property="createTime"/>
+        <result column="updatetime" property="updateTime"/>
+
+    </resultMap>
+    <select id="getDrugByPage" resultMap="drugMap">
+        select * from drug limit #{offset}, #{count}
+    </select>
+    <select id="getDrugCount" resultType="Integer">
+        select count(*) from drug
+    </select>
+</mapper>
