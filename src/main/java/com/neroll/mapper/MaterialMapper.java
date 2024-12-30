@@ -16,4 +16,6 @@ public interface MaterialMapper {
 
     Integer updateMaterial(Material material);
 
+    Integer deleteMaterialById(Integer id);
+
 }

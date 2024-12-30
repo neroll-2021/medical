@@ -46,7 +46,7 @@ public class MaterialService {
         return Result.success("添加成功");
     }
 
-    //修改必备材料信息
+    // 修改必备材料信息
     public Result<Material> updateMaterial(Material material) {
         material.setUpdateTime(LocalDateTime.now());
         int line = materialMapper.updateMaterial((material));
@@ -54,6 +54,15 @@ public class MaterialService {
             return Result.error("修改失败");
         }
         return Result.success("修改成功");
+    }
+
+    // 删除必备材料
+    public Result<Material> deleteMaterial(Integer id) {
+        int line = materialMapper.deleteMaterialById(id);
+        if (line == 0) {
+            return Result.error("删除失败");
+        }
+        return Result.success("删除成功");
     }
 
 }

@@ -57,4 +57,9 @@ public class MaterialController {
         material.setId(id);
         return materialService.updateMaterial(material);
     }
+
+    @DeleteMapping("/{id}")
+    public Result<Material> deleteMaterial(@PathVariable Integer id) {
+        return materialService.deleteMaterial(id);
+    }
 }
