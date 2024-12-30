@@ -18,12 +18,13 @@ public class MedicalPolicyController {
 
     @GetMapping
     public Result<PageInfo<DisplayedMedicalPolicy>> getPolicyByPage(@RequestParam("pn") Integer pageNum,
-                                                                    @RequestParam("size") Integer pageSize) {
+                                                                    @RequestParam("size") Integer pageSize,
+                                                                    @RequestParam(value = "keyword", defaultValue = "") String keyword) {
         if (pageNum == null)
             return Result.error("页码不能为空");
         if (pageSize == null)
             return Result.error("页大小不能为空");
-        return service.getPolicyByPage(pageNum, pageSize);
+        return service.getPolicyByPage(pageNum, pageSize, keyword);
     }
 
     @PostMapping

@@ -17,6 +17,8 @@
             <result column="cityName" property="cityName"/>
             <result column="provinceName" property="provinceName"/>
             <result column="number" property="number"/>
+            <result column="createtime" property="createTime"/>
+            <result column="updatetime" property="updateTime"/>
         </association>
     </resultMap>
 
@@ -27,10 +29,11 @@
 
     <select id="getMedicalPolicyByPage" resultMap="displayedMedicalPolicyMap">
         select m.id, m.title, m.message, ch.name as cityName, ch2.name as provinceName,
-            c.city_id as cid,  c.city_number as number, m.create_time, m.update_time
+            c.city_id as cid,  c.city_number as number, m.create_time, m.update_time, c.createtime, c.updatetime
             from medical_policy as m left outer join city c on m.city_id = c.city_id
             left outer join china as ch on c.city_number = ch.id
             left outer join china as ch2 on ch.parent_id = ch2.id
+            where title like #{keyword}
             limit #{offset}, #{count}
     </select>
 
@@ -53,5 +56,9 @@
         from medical_policy
         where id = #{id};
     </delete>
+
+    <select id="getMedicalPolicyCountWithNameLike" resultType="int">
+        select count(*) from medical_policy where title like #{name}
+    </select>
 
 </mapper>

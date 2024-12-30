@@ -6,6 +6,7 @@ import com.neroll.mapper.MedicalPolicyMapper;
 import com.neroll.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class MedicalPolicyService {
     @Autowired
     private ChinaMapper chinaMapper;
 
-    public Result<PageInfo<DisplayedMedicalPolicy>> getPolicyByPage(Integer pageNum, Integer pageSize) {
+    public Result<PageInfo<DisplayedMedicalPolicy>> getPolicyByPage(Integer pageNum, Integer pageSize, String keyword) {
         if (pageNum <= 0)
             return Result.error("页码错误");
         if (pageSize <= 0)
@@ -32,12 +33,19 @@ public class MedicalPolicyService {
         int offset = (pageNum - 1) * pageSize;
         int count = pageSize;
 
-        List<DisplayedMedicalPolicy> policies = policyMapper.getMedicalPolicyByPage(offset, count);
+        String searchText = "%" + keyword + "%";
+
+        List<DisplayedMedicalPolicy> policies = policyMapper.getMedicalPolicyByPage(offset, count, searchText);
         if (policies == null)
             return Result.error("查询失败");
         PageInfo<DisplayedMedicalPolicy> info = new PageInfo<>();
 
-        int total = policyMapper.getMedicalPolicyNum();
+//        int total = policyMapper.getMedicalPolicyNum();
+        int total;
+        if (StringUtils.hasText(keyword))
+            total = policyMapper.getMedicalPolicyCountWithNameLike(searchText);
+        else
+            total = policyMapper.getMedicalPolicyNum();
 
         info.setTotal(total);
         info.setList(policies);

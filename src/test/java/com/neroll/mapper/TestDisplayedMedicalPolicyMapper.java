@@ -14,7 +14,7 @@ public class TestDisplayedMedicalPolicyMapper {
 
     @Test
     public void testQuery() {
-        List<DisplayedMedicalPolicy> policies = mapper.getMedicalPolicyByPage(0, 5);
+        List<DisplayedMedicalPolicy> policies = mapper.getMedicalPolicyByPage(0, 5, "");
         if (policies == null) {
             System.out.println("fail");
             return;
