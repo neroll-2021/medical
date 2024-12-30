@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,7 +14,7 @@ public class DrugService {
     @Autowired
     private DrugMapper drugMapper;
 
-    public Result<PageInfo<DrugVo>> findDrugByPage(Integer pageNumber, Integer pageSize) {
+    public Result<PageInfo<DrugVo>> findDrugByPage(Integer pageNumber, Integer pageSize, String keyword) {
         if (pageNumber <= 0) {
             return Result.error("页码错误");
         }
@@ -22,28 +23,20 @@ public class DrugService {
         }
         int offset = (pageNumber - 1) * pageSize;
         int count = pageSize;
-        List<DrugVo> drugs = drugMapper.getDrugByPage(offset, count);
-        if (drugs != null && drugs.size() > 0) {
-            for (DrugVo drug : drugs) {
-                List<Sale> saleList = drugMapper.getSaleLocation(drug.getDrugId());
-                if (saleList != null && saleList.size() > 0) {
-                    String temp = "";
-                    for (int i = 0; i < saleList.size(); i++) {
-                        if (i < saleList.size() - 1) {
-                            temp += saleList.get(i).getSaleName() + ",";
+        String searchText = "%" + keyword + "%";
+        List<DrugVo> drugs = drugMapper.getDrugByPage(offset, count, searchText);
+        if (drugs == null)
+            return Result.error("查询失败");
 
-                        } else {
-                            temp += saleList.get(i).getSaleName();
+        for (DrugVo drug : drugs) {
+            List<SaleVo> saleVoList = drugMapper.getSaleLocations(drug.getDrugId());
+            if (saleVoList == null)
+                return Result.error("查询失败");
 
-                        }
-                    }
-                    drug.setSaleLocations(temp);
-
-
-                }
-            }
+            drug.setSaleLocations(saleVoList);
         }
-        Integer total = drugMapper.getDrugCount();
+
+        Integer total = drugMapper.getDrugNameLikeCount(searchText);
         PageInfo<DrugVo> info = new PageInfo<>();
         info.setList(drugs);
         info.setTotal(total);

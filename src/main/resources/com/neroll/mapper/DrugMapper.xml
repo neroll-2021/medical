@@ -15,13 +15,19 @@
     </resultMap>
     <select id="getDrugByPage" resultMap="drugMap">
         select * from drug
+            where drug_name like #{keyword}
             limit #{offset}, #{count}
     </select>
     <select id="getDrugCount" resultType="Integer">
         select count(*) from drug
     </select>
-    <select id="getSaleLocation" resultType="com.neroll.pojo.Sale">
-        SELECT sale_name as saleName
+    <select id="getDrugNameLikeCount" resultType="Integer">
+        select count(*) from drug
+        where drug_name like #{keyword}
+
+    </select>
+    <select id="getSaleLocations" resultType="com.neroll.pojo.SaleVo">
+        SELECT sale.sale_id as saleId, sale_name as saleName
         from drug
                  INNER JOIN drug_sale
                             on drug.drug_id=drug_sale.drug_id

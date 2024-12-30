@@ -33,7 +33,9 @@ public class DrugController {
     }
 
     @GetMapping
-    public Result<PageInfo<DrugVo>> findDrugByPage(@RequestParam("pn") Integer pageNumber, @RequestParam("size") Integer pageSize) {
+    public Result<PageInfo<DrugVo>> findDrugByPage(@RequestParam("pn") Integer pageNumber,
+                                                   @RequestParam("size") Integer pageSize,
+                                                   @RequestParam("keyword") String keyword) {
         if (pageNumber == null) {
             return Result.error("页码不能为空");
         }
@@ -41,7 +43,7 @@ public class DrugController {
             return Result.error("页大小不能为空");
 
         }
-        return drugService.findDrugByPage(pageNumber, pageSize);
+        return drugService.findDrugByPage(pageNumber, pageSize, keyword);
     }
 
 
