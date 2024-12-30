@@ -39,8 +39,8 @@ public class MedicalPolicyService {
     }
 
     public Result<MedicalPolicy> addPolicy(MedicalPolicy policy) {
-        City city = cityMapper.getCityById(policy.getCityId());
-        if (city == null)
+        CityVo cityVo = cityMapper.getCityById(policy.getCityId());
+        if (cityVo == null)
             return Result.error("城市不存在");
         policy.setCreateTime(LocalDateTime.now());
         policy.setUpdateTime(LocalDateTime.now());
@@ -55,8 +55,8 @@ public class MedicalPolicyService {
         policy.setId(id);
         policy.setUpdateTime(LocalDateTime.now());
 
-        City city = cityMapper.getCityById(policy.getCityId());
-        if (city == null)
+        CityVo cityVo = cityMapper.getCityById(policy.getCityId());
+        if (cityVo == null)
             return Result.error("城市不存在");
 
         int line = policyMapper.updateMedicalPolicy(policy);

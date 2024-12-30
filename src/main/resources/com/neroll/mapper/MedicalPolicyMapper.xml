@@ -11,8 +11,8 @@
         <result column="message" property="message"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <association property="city" javaType="com.neroll.pojo.City">
-<!--            <id javaType="com.neroll.pojo.City" column="id" property="id"/>-->
+        <association property="cityVo" javaType="com.neroll.pojo.CityVo">
+<!--            <id javaType="com.neroll.pojo.CityVo" column="id" property="id"/>-->
             <result column="cid" property="id"/>
             <result column="cityName" property="cityName"/>
             <result column="provinceName" property="provinceName"/>

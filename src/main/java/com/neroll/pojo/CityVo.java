@@ -2,11 +2,11 @@ package com.neroll.pojo;
 
 import java.time.LocalDateTime;
 
-public class DisplayedMedicalPolicy {
+public class CityVo {
     private Integer id;
-    public String title;
-    private String message;
-    private CityVo cityVo;
+    private String cityName;
+    private String provinceName;
+    private Integer number; // 身份证开头 6 位
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 
@@ -18,28 +18,28 @@ public class DisplayedMedicalPolicy {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
-    public String getMessage() {
-        return message;
+    public String getProvinceName() {
+        return provinceName;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
     }
 
-    public CityVo getCity() {
-        return cityVo;
+    public Integer getNumber() {
+        return number;
     }
 
-    public void setCity(CityVo cityVo) {
-        this.cityVo = cityVo;
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public LocalDateTime getCreateTime() {
@@ -60,13 +60,11 @@ public class DisplayedMedicalPolicy {
 
     @Override
     public String toString() {
-        return "MedicalPolicy{" +
+        return "City{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", message='" + message + '\'' +
-                ", city=" + cityVo +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
+                ", cityName='" + cityName + '\'' +
+                ", provinceName='" + provinceName + '\'' +
+                ", number=" + number +
                 '}';
     }
 }

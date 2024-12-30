@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neroll.mapper.ChinaMapper">
+    <resultMap id="chinaMap" type="com.neroll.pojo.Region">
+        <result column="parent_id" property="parentId"/>
+    </resultMap>
+
+    <select id="getRegionsByName" resultMap="chinaMap">
+        select * from china where name = #{name}
+    </select>
+
+</mapper>

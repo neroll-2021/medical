@@ -4,11 +4,9 @@ import java.time.LocalDateTime;
 
 public class City {
     private Integer id;
-    private String cityName;
-    private String provinceName;
-    private Integer number; // 身份证开头 6 位
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
+    private Integer cityNumber;
 
     public Integer getId() {
         return id;
@@ -16,30 +14,6 @@ public class City {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public String getProvinceName() {
-        return provinceName;
-    }
-
-    public void setProvinceName(String provinceName) {
-        this.provinceName = provinceName;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
     }
 
     public LocalDateTime getCreateTime() {
@@ -58,13 +32,21 @@ public class City {
         this.updateTime = updateTime;
     }
 
+    public Integer getCityNumber() {
+        return cityNumber;
+    }
+
+    public void setCityNumber(Integer cityNumber) {
+        this.cityNumber = cityNumber;
+    }
+
     @Override
     public String toString() {
         return "City{" +
                 "id=" + id +
-                ", cityName='" + cityName + '\'' +
-                ", provinceName='" + provinceName + '\'' +
-                ", number=" + number +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", cityNumber=" + cityNumber +
                 '}';
     }
 }

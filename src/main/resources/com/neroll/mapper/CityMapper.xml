@@ -11,8 +11,15 @@
         <result column="city_number" property="number"/>
     </resultMap>
 
-    <select id="getCitiesByPage" resultMap="cityMap">
-        select city.city_id, a.name as cityName, b.name as provinceName, city.city_number
+    <resultMap id="cityVoMap" type="com.neroll.pojo.CityVo">
+        <result column="city_id" property="id"/>
+        <result column="createtime" property="createTime"/>
+        <result column="updatetime" property="updateTime"/>
+        <result column="city_number" property="number"/>
+    </resultMap>
+
+    <select id="getCitiesByPage" resultMap="cityVoMap">
+        select city.city_id, a.name as cityName, b.name as provinceName, city.city_number, city.createtime, city.updatetime
                from city left outer join china as a on city.city_number = a.id
                         left outer join china as b on a.parent_id = b.id
         where b.name like #{keyword} or a.name like #{keyword}
@@ -30,5 +37,10 @@
     <select id="getCityById" resultMap="cityMap">
         select * from city where city_id = #{id}
     </select>
+
+    <insert id="saveCity">
+        insert into city (createtime, updatetime, city_number)
+        values (#{createTime}, #{updateTime}, #{cityNumber})
+    </insert>
 
 </mapper>

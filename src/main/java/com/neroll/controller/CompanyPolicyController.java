@@ -13,7 +13,7 @@ public class CompanyPolicyController {
     @Autowired
     private CompanyPolicyService service;
 
-    Result<CompanyPolicy> checkNonEmpty(CompanyPolicy policy) {
+    private Result<CompanyPolicy> checkNonEmpty(CompanyPolicy policy) {
         if (policy == null)
             return Result.error("政策数据不能为空");
 
