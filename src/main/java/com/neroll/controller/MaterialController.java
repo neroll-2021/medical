@@ -47,4 +47,14 @@ public class MaterialController {
         return materialService.addMaterial(material);
 
     }
+
+    @PutMapping("/{id}")
+    public Result<Material> updateMaterial(@PathVariable Integer id, @RequestBody Material material) {
+        Result<Material> materialResult = checkNonEmpty(material);
+        if (materialResult.isError()) {
+            return Result.error("修改失败");
+        }
+        material.setId(id);
+        return materialService.updateMaterial(material);
+    }
 }

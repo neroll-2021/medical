@@ -13,4 +13,7 @@ public interface MaterialMapper {
     Integer getMaterialCount();
 
     Integer addMaterial(Material material);
+
+    Integer updateMaterial(Material material);
+
 }
