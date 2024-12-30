@@ -43,4 +43,8 @@
         values (#{createTime}, #{updateTime}, #{cityNumber})
     </insert>
 
+    <select id="getCityByNumber" resultMap="cityMap">
+        select * from city where city_number = #{number}
+    </select>
+
 </mapper>

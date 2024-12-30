@@ -27,16 +27,14 @@ public class MedicalPolicyController {
     }
 
     @PostMapping
-    public Result<MedicalPolicy> addPolicy(@RequestBody MedicalPolicy policy) {
+    public Result<MedicalPolicy> addPolicy(@RequestParam("city") String city, @RequestBody MedicalPolicy policy) {
         if (policy == null)
             return Result.error(" 医保政策数据不能为空");
         if (!StringUtils.hasText(policy.getTitle()))
             return Result.error("医保政策标题不能为空");
         if (!StringUtils.hasText(policy.getMessage()))
             return Result.error("医保政策内容不能为空");
-        if (policy.getCityId() == null)
-            return Result.error("城市 id 不能为空");
-        return service.addPolicy(policy);
+        return service.addPolicy(city, policy);
     }
 
     @PutMapping("/{id}")

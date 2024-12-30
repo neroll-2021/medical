@@ -21,4 +21,6 @@ public interface CityMapper {
     City getCityById(@Param("id") Integer id);
 
     int saveCity(City city);
+
+    City getCityByNumber(@Param("number") Integer number);
 }

@@ -1,5 +1,6 @@
 package com.neroll.service;
 
+import com.neroll.mapper.ChinaMapper;
 import com.neroll.mapper.CityMapper;
 import com.neroll.mapper.MedicalPolicyMapper;
 import com.neroll.pojo.*;
@@ -18,6 +19,9 @@ public class MedicalPolicyService {
 
     @Autowired
     private MedicalPolicyMapper policyMapper;
+
+    @Autowired
+    private ChinaMapper chinaMapper;
 
     public Result<PageInfo<DisplayedMedicalPolicy>> getPolicyByPage(Integer pageNum, Integer pageSize) {
         if (pageNum <= 0)
@@ -40,10 +44,18 @@ public class MedicalPolicyService {
         return Result.success("查询成功", info);
     }
 
-    public Result<MedicalPolicy> addPolicy(MedicalPolicy policy) {
-        City city = cityMapper.getCityById(policy.getCityId());
-        if (city == null)
+    public Result<MedicalPolicy> addPolicy(String city, MedicalPolicy policy) {
+        List<Region> regions = chinaMapper.getRegionsByName(city);
+        if (regions == null)
+            return Result.error("查询城市信息失败");
+        if (regions.isEmpty())
             return Result.error("城市不存在");
+        if (regions.size() != 1)
+            return Result.error("城市重名（这怎么可能？）");
+
+        City theCity = cityMapper.getCityByNumber(regions.get(0).getId());
+        policy.setCityId(theCity.getId());
+
         policy.setCreateTime(LocalDateTime.now());
         policy.setUpdateTime(LocalDateTime.now());
 
