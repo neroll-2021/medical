@@ -17,7 +17,7 @@ public class MaterialService {
     private MaterialMapper materialMapper;
 
 
-    public Result<PageInfo<Material>> findMaterialByPage(Integer PageNumber, Integer PageSize, String Keyword) {
+    public Result<PageInfo<Material>> findMaterialByPage(Integer PageNumber, Integer PageSize, String keyword) {
         if (PageNumber <= 0) {
             return Result.error("页码错误");
         }
@@ -26,9 +26,9 @@ public class MaterialService {
         }
         int offset = (PageNumber - 1) * PageSize;
         int count = PageSize;
-        String keyword = "%" + Keyword + "%";
-        List<Material> materials = materialMapper.findMaterialByPage(offset, count, keyword);
-        Integer total = materialMapper.getMaterialCount();
+        String searchText = "%" + keyword + "%";
+        List<Material> materials = materialMapper.findMaterialByPage(offset, count, searchText);
+        Integer total = materialMapper.getMaterialNameLikeCount(searchText);
         PageInfo<Material> info = new PageInfo<>();
         info.setTotal(total);
         info.setList(materials);
