@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neroll.mapper.DrugMapper">
-    <resultMap id="drugMap" type="com.neroll.pojo.Drug">
+    <resultMap id="drugMap" type="com.neroll.pojo.DrugVo">
         <result column="drug_id" property="drugId"/>
         <result column="drug_name" property="drugName"/>
         <result column="drug_info" property="drugInfo"/>
@@ -14,9 +14,25 @@
 
     </resultMap>
     <select id="getDrugByPage" resultMap="drugMap">
-        select * from drug limit #{offset}, #{count}
+        select * from drug
+            limit #{offset}, #{count}
     </select>
     <select id="getDrugCount" resultType="Integer">
         select count(*) from drug
     </select>
+    <select id="getSaleLocation" resultType="com.neroll.pojo.Sale">
+        SELECT sale_name as saleName
+        from drug
+                 INNER JOIN drug_sale
+                            on drug.drug_id=drug_sale.drug_id
+                 INNER JOIN sale
+                            on sale.sale_id=drug_sale.sale_id
+        where drug.drug_id=#{drugId}
+
+    </select>
+    <insert id="addDrug">
+        insert into drug(drug_name, drug_info, drug_effect, drug_img, publisher)
+        VALUES
+            (#{drugName},#{drugInfo},#{drugEffect},#{drugImg},#{publisher})
+    </insert>
 </mapper>
