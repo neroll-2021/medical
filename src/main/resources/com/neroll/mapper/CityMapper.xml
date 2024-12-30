@@ -8,7 +8,7 @@
         <result column="city_id" property="id"/>
         <result column="createtime" property="createTime"/>
         <result column="updatetime" property="updateTime"/>
-        <result column="city_number" property="number"/>
+        <result column="city_number" property="cityNumber"/>
     </resultMap>
 
     <resultMap id="cityVoMap" type="com.neroll.pojo.CityVo">
@@ -42,5 +42,9 @@
         insert into city (createtime, updatetime, city_number)
         values (#{createTime}, #{updateTime}, #{cityNumber})
     </insert>
+
+    <select id="getCityByNumber" resultMap="cityMap">
+        select * from city where city_number = #{number}
+    </select>
 
 </mapper>

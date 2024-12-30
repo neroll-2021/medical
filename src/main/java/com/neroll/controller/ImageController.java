@@ -2,6 +2,7 @@ package com.neroll.controller;
 
 import com.neroll.pojo.Result;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/image")
 public class ImageController {

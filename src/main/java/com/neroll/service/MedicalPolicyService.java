@@ -1,14 +1,17 @@
 package com.neroll.service;
 
+import com.neroll.mapper.ChinaMapper;
 import com.neroll.mapper.CityMapper;
 import com.neroll.mapper.MedicalPolicyMapper;
 import com.neroll.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@CrossOrigin
 @Service
 public class MedicalPolicyService {
     @Autowired
@@ -16,6 +19,9 @@ public class MedicalPolicyService {
 
     @Autowired
     private MedicalPolicyMapper policyMapper;
+
+    @Autowired
+    private ChinaMapper chinaMapper;
 
     public Result<PageInfo<DisplayedMedicalPolicy>> getPolicyByPage(Integer pageNum, Integer pageSize) {
         if (pageNum <= 0)
@@ -38,10 +44,18 @@ public class MedicalPolicyService {
         return Result.success("查询成功", info);
     }
 
-    public Result<MedicalPolicy> addPolicy(MedicalPolicy policy) {
-        CityVo cityVo = cityMapper.getCityById(policy.getCityId());
-        if (cityVo == null)
+    public Result<MedicalPolicy> addPolicy(String city, MedicalPolicy policy) {
+        List<Region> regions = chinaMapper.getRegionsByName(city);
+        if (regions == null)
+            return Result.error("查询城市信息失败");
+        if (regions.isEmpty())
             return Result.error("城市不存在");
+        if (regions.size() != 1)
+            return Result.error("城市重名（这怎么可能？）");
+
+        City theCity = cityMapper.getCityByNumber(regions.get(0).getId());
+        policy.setCityId(theCity.getId());
+
         policy.setCreateTime(LocalDateTime.now());
         policy.setUpdateTime(LocalDateTime.now());
 
@@ -55,8 +69,8 @@ public class MedicalPolicyService {
         policy.setId(id);
         policy.setUpdateTime(LocalDateTime.now());
 
-        CityVo cityVo = cityMapper.getCityById(policy.getCityId());
-        if (cityVo == null)
+        City city = cityMapper.getCityById(policy.getCityId());
+        if (city == null)
             return Result.error("城市不存在");
 
         int line = policyMapper.updateMedicalPolicy(policy);
