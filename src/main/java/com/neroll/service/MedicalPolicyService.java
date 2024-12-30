@@ -5,10 +5,12 @@ import com.neroll.mapper.MedicalPolicyMapper;
 import com.neroll.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@CrossOrigin
 @Service
 public class MedicalPolicyService {
     @Autowired
@@ -39,8 +41,8 @@ public class MedicalPolicyService {
     }
 
     public Result<MedicalPolicy> addPolicy(MedicalPolicy policy) {
-        CityVo cityVo = cityMapper.getCityById(policy.getCityId());
-        if (cityVo == null)
+        City city = cityMapper.getCityById(policy.getCityId());
+        if (city == null)
             return Result.error("城市不存在");
         policy.setCreateTime(LocalDateTime.now());
         policy.setUpdateTime(LocalDateTime.now());
@@ -55,8 +57,8 @@ public class MedicalPolicyService {
         policy.setId(id);
         policy.setUpdateTime(LocalDateTime.now());
 
-        CityVo cityVo = cityMapper.getCityById(policy.getCityId());
-        if (cityVo == null)
+        City city = cityMapper.getCityById(policy.getCityId());
+        if (city == null)
             return Result.error("城市不存在");
 
         int line = policyMapper.updateMedicalPolicy(policy);

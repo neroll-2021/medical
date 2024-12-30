@@ -8,7 +8,7 @@
         <result column="city_id" property="id"/>
         <result column="createtime" property="createTime"/>
         <result column="updatetime" property="updateTime"/>
-        <result column="city_number" property="number"/>
+        <result column="city_number" property="cityNumber"/>
     </resultMap>
 
     <resultMap id="cityVoMap" type="com.neroll.pojo.CityVo">

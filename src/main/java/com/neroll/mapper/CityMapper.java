@@ -18,7 +18,7 @@ public interface CityMapper {
 
     int deleteCityById(@Param("id") Integer id);
 
-    CityVo getCityById(@Param("id") Integer id);
+    City getCityById(@Param("id") Integer id);
 
     int saveCity(City city);
 }
