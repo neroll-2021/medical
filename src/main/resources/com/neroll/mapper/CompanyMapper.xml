@@ -37,4 +37,10 @@
         select count(*) from drugcompany
     </select>
 
+    <select id="getCompanyCountNameLike" resultType="int">
+        select count(*)
+        from drugcompany
+        where company_name like #{name}
+    </select>
+
 </mapper>

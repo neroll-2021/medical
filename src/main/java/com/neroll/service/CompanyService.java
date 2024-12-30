@@ -6,6 +6,7 @@ import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -68,7 +69,11 @@ public class CompanyService {
         if (companies == null)
             return Result.error("查询失败");
 
-        int total = mapper.getCompanyTotalCount();
+        int total;
+        if (StringUtils.hasText(name))
+            total = mapper.getCompanyCountNameLike(searchText);
+        else
+            total = mapper.getCompanyTotalCount();
 
         PageInfo<Company> info = new PageInfo<>();
         info.setTotal(total);

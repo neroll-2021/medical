@@ -23,4 +23,6 @@ public interface CompanyMapper {
 
     int getCompanyTotalCount();
 
+    int getCompanyCountNameLike(@Param("name") String name);
+
 }
