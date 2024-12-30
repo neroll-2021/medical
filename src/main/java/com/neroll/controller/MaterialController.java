@@ -5,10 +5,8 @@ import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import com.neroll.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/material")
@@ -16,14 +14,37 @@ public class MaterialController {
     @Autowired
     private MaterialService materialService;
 
+    private Result<Material> checkNonEmpty(Material material) {
+        if (material == null) {
+            return Result.error("必备材料信息不能为空");
+        }
+        if (!StringUtils.hasText(material.getTitle())) {
+            return Result.error("类型不能为空");
+        }
+        if (!StringUtils.hasText(material.getMessage())) {
+            return Result.error("材料信息不能为空");
+        }
+        return Result.success("添加成功");
+    }
+
     @GetMapping
-    public Result<PageInfo<Material>> findMaterialByPage(@RequestParam("pn") Integer pageNumber, @RequestParam("size") Integer pageSize) {
+    public Result<PageInfo<Material>> findMaterialByPage(@RequestParam("pn") Integer pageNumber, @RequestParam("size") Integer pageSize, @RequestParam("keyword") String keyword) {
         if (pageNumber == null) {
             return Result.error("页码不能为空");
         }
         if (pageSize == null) {
             return Result.error("页大小不能为空");
         }
-        return materialService.findMaterialByPage(pageNumber, pageSize);
+        return materialService.findMaterialByPage(pageNumber, pageSize, keyword);
+    }
+
+    @PostMapping
+    public Result<Material> addMaterial(@RequestBody Material material) {
+        Result<Material> materialResult = checkNonEmpty(material);
+        if (materialResult.isError()) {
+            return Result.error("添加失败");
+        }
+        return materialService.addMaterial(material);
+
     }
 }
