@@ -93,4 +93,11 @@ public class DoctorService {
             return Result.error("医师不存在");
         return Result.success("修改成功");
     }
+
+    public Result<Doctor> deleteDoctorById(Integer id) {
+        int line = doctorMapper.deleteDoctorById(id);
+        if (line == 0)
+            return Result.error("医师不存在");
+        return Result.success("删除成功");
+    }
 }

@@ -20,4 +20,6 @@ public interface DoctorMapper {
     int saveDoctor(Doctor doctor);
 
     int updateDoctor(Doctor doctor);
+
+    int deleteDoctorById(@Param("id") Integer id);
 }
