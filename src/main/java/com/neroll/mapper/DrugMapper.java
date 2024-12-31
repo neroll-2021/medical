@@ -1,8 +1,6 @@
 package com.neroll.mapper;
 
-import com.neroll.pojo.DrugVo;
-import com.neroll.pojo.Sale;
-import com.neroll.pojo.SaleVo;
+import com.neroll.pojo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,8 +16,15 @@ public interface DrugMapper {
     List<SaleVo> getSaleLocations(Long drugId);
 
     Integer getDrugCount();
-    Integer getDrugNameLikeCount( @Param("keyword") String keyword);
 
-    Integer addDrug();
+    Integer getDrugNameLikeCount(@Param("keyword") String keyword);
+
+    Integer addDrug(Drug drug);
+
+    Long getLastInsertId();
+
+    List<Drug> getDrugByName(String drugName);
+
+    String getDrugPublisher(Integer userId);
 
 }
