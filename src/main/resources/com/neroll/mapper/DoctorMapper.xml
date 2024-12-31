@@ -32,4 +32,11 @@
             (#{name}, #{age}, #{sex}, #{levelId}, #{phone}, #{typeId}, #{hospital}, #{updateTime}, #{createTime}, #{accountId})
     </insert>
 
+    <update id="updateDoctor">
+        update doctor set name = #{name}, age = #{age}, sex = #{sex}, level_id = #{levelId},
+                          phone = #{phone}, type_id = #{typeId}, hospital = #{hospital},
+                          updatetime = #{updateTime}, account_id = #{accountId}
+        where id = #{id}
+    </update>
+
 </mapper>
