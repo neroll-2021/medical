@@ -1,6 +1,7 @@
 package com.neroll.mapper;
 
 import com.neroll.pojo.Company;
+import com.neroll.pojo.CompanyVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,5 +25,7 @@ public interface CompanyMapper {
     int getCompanyTotalCount();
 
     int getCompanyCountNameLike(@Param("name") String name);
+
+    List<CompanyVo> getAllCompanyVo();
 
 }

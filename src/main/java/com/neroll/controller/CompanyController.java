@@ -1,12 +1,15 @@
 package com.neroll.controller;
 
 import com.neroll.pojo.Company;
+import com.neroll.pojo.CompanyVo;
 import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import com.neroll.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -28,6 +31,11 @@ public class CompanyController {
         if (id == null)
             return Result.error("公司 id 不能为空");
         return service.findCompanyById(id);
+    }
+
+    @GetMapping("/all")
+    public Result<List<CompanyVo>> getAllCompany() {
+        return service.getAllCompanyVo();
     }
 
     @PostMapping
