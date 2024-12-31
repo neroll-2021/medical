@@ -3,11 +3,14 @@ package com.neroll.controller;
 import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import com.neroll.pojo.Sale;
+import com.neroll.pojo.SaleVo;
 import com.neroll.service.SaleService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -47,6 +50,11 @@ public class SaleController {
             return Result.error("页大小不能为空");
         }
         return saleService.findSaleByPage(pageNumber, pageSize);
+    }
+
+    @GetMapping("/all")
+    public Result<List<SaleVo>> getAllSaleLocations() {
+        return saleService.getAllSaleLocations();
     }
 
     @PostMapping

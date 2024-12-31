@@ -10,7 +10,7 @@ import java.util.List;
 public interface MaterialMapper {
     List<Material> findMaterialByPage(@Param("offset") Integer offset, @Param("count") Integer count, @Param("keyword") String keyword);
 
-    Integer getMaterialCount();
+    Integer getMaterialNameLikeCount(String keyword);
 
     Integer addMaterial(Material material);
 

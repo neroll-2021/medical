@@ -1,6 +1,7 @@
 package com.neroll.mapper;
 
 import com.neroll.pojo.Sale;
+import com.neroll.pojo.SaleVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,6 @@ public interface SaleMapper {
     Integer updateSale(Sale sale);
 
     Integer deleteSaleById(Long id);
+
+    List<SaleVo> getAllSaleLocations();
 }

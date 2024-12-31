@@ -12,8 +12,9 @@
             where title like #{keyword}
             limit #{offset}, #{count}
     </select>
-    <select id="getMaterialCount" resultType="Integer">
+    <select id="getMaterialNameLikeCount" resultType="Integer">
         select count(*) from material
+        where title like #{keyword}
     </select>
     <insert id="addMaterial">
         insert into material(title, message,create_time,update_time)

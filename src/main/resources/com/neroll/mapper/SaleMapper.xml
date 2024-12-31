@@ -30,4 +30,7 @@
     <delete id="deleteSaleById">
         delete from sale where sale_id=#{saleId}
     </delete>
+    <select id="getAllSaleLocations" resultType="com.neroll.pojo.SaleVo">
+        select sale_id as saleId, sale_name as saleName from sale
+    </select>
 </mapper>
