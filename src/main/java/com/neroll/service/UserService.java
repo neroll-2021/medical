@@ -1,5 +1,6 @@
 package com.neroll.service;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.neroll.mapper.UserMapper;
 import com.neroll.pojo.Result;
 import com.neroll.pojo.User;
@@ -30,9 +31,7 @@ public class UserService {
             return Result.error("用户名或密码错误");
 
         // 生成 token
-
-        // 在 redis 中添加 token 信息
-        // RedisUtil.set("medical:login:token", token, 60);
+        StpUtil.login(user.getId());
 
         return Result.success("登录成功", user.getUname());
     }

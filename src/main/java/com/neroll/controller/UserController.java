@@ -1,5 +1,6 @@
 package com.neroll.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.neroll.pojo.Result;
 import com.neroll.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ public class UserController {
     private UserService userService;
     @PostMapping("/login")
     public Result<String> login(String username, String password) {
+        if (StpUtil.isLogin())
+            return Result.error("用户已登录");
         System.out.println(username + ", " + password);
         return userService.login(username, password);
     }
