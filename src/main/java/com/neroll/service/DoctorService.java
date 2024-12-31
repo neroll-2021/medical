@@ -17,20 +17,20 @@ public class DoctorService {
     @Autowired
     private UserMapper userMapper;
 
-    public Result<PageInfo<Doctor>> searchDoctorByLevel(Integer pageNumber, Integer pageSize, String level) {
+    public Result<PageInfo<DoctorVo>> searchDoctorByLevel(Integer pageNumber, Integer pageSize, String level) {
         int offset = (pageNumber - 1) * pageSize;
         int count = pageSize;
 
         String searchString = "%" + level + "%";
 
-        List<Doctor> doctors = doctorMapper.findDoctorByLevelByPage(offset, count, searchString);
+        List<DoctorVo> doctors = doctorMapper.findDoctorByLevelByPage(offset, count, searchString);
         if (doctors == null)
             return Result.error("查找失败");
 
         int total = doctorMapper.findDoctorCountByLevel(searchString);
 
 //        DoctorInfo info = new DoctorInfo();
-        PageInfo<Doctor> info = new PageInfo<>();
+        PageInfo<DoctorVo> info = new PageInfo<>();
         info.setTotal(total);
         info.setList(doctors);
 

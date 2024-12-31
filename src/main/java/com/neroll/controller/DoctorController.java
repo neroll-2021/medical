@@ -1,6 +1,7 @@
 package com.neroll.controller;
 
 import com.neroll.pojo.Doctor;
+import com.neroll.pojo.DoctorVo;
 import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import com.neroll.service.DoctorService;
@@ -15,7 +16,10 @@ public class DoctorController {
     private DoctorService service;
 
     @GetMapping
-    public Result<PageInfo<Doctor>> searchDoctorByLevel(Integer pn, Integer size, String keyword) {
+    public Result<PageInfo<DoctorVo>> searchDoctorByLevel(@RequestParam("pn") Integer pn,
+                                                          @RequestParam("size") Integer size,
+                                                          @RequestParam(value = "keyword", defaultValue = "")
+                                                                      String keyword) {
         if (pn == null)
             return Result.error("页码不能为空");
         if (pn <= 0)

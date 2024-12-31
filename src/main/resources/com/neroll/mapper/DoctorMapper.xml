@@ -11,8 +11,12 @@
         <result column="account_id" property="accountId"/>
     </resultMap>
 
-    <select id="findDoctorByLevelByPage" resultMap="doctorMap">
-        select * from doctor as d left outer join doctor_level as dl on d.level_id = dl.id
+    <select id="findDoctorByLevelByPage" resultType="com.neroll.pojo.DoctorVo">
+        select d.id, d.name, d.age, d.sex, dl.name as level, d.phone,
+               tt.name as type, d.hospital, d.createtime as createTime,
+               d.updatetime as updateTime, d.account_id as accountId
+        from doctor as d left outer join doctor_level as dl on d.level_id = dl.id
+        left outer join treat_type as tt on d.type_id = tt.id
             where dl.name like #{level} limit #{offset}, #{count}
     </select>
 
