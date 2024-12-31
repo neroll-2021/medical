@@ -14,6 +14,16 @@
         select * from company_policy where id = #{id}
     </select>
 
+    <select id="getPolicyByPage" resultMap="companyPolicyMap">
+        select * from company_policy
+        where title like #{keyword}
+        limit #{offset}, #{count}
+    </select>
+
+    <select id="getPolicyCountNameLike" resultType="int">
+        select count(*) from company_policy where title like #{keyword}
+    </select>
+
     <insert id="savePolicy">
         insert into company_policy (title, message, company_id, create_time, update_time)
         values (#{title}, #{message}, #{companyId}, #{createTime}, #{updateTime});

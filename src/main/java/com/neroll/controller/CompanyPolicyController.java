@@ -1,6 +1,7 @@
 package com.neroll.controller;
 
 import com.neroll.pojo.CompanyPolicy;
+import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import com.neroll.service.CompanyPolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,14 @@ public class CompanyPolicyController {
             return Result.error("政策 id 不能为空");
 
         return service.getCompanyPolicyById(id);
+    }
+
+    @GetMapping
+    public Result<PageInfo<CompanyPolicy>> getCompanyPolicyByPage(@RequestParam("pn") Integer pageNum,
+                                                                  @RequestParam("size") Integer pageSize,
+                                                                  @RequestParam(value = "keyword", defaultValue = "")
+                                                                          String keyword) {
+        return service.getCompanyPolicyByPage(pageNum, pageSize, keyword);
     }
 
     @PostMapping
