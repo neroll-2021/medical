@@ -1,9 +1,6 @@
 package com.neroll.controller;
 
-import com.neroll.pojo.Drug;
-import com.neroll.pojo.DrugVo;
-import com.neroll.pojo.PageInfo;
-import com.neroll.pojo.Result;
+import com.neroll.pojo.*;
 import com.neroll.service.DrugService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +13,7 @@ public class DrugController {
     @Autowired
     private DrugService drugService;
 
+    // 检查添加药品信息是否为空
     private Result<Drug> checkNonEmpty(Drug drug) {
         if (!StringUtils.hasText(drug.getDrugName())) {
             return Result.error("药品名称不能为空");
@@ -44,6 +42,17 @@ public class DrugController {
 
         }
         return drugService.findDrugByPage(pageNumber, pageSize, keyword);
+    }
+
+    @PostMapping
+    public Result<Drug> addDrug(@RequestBody DrugDto drugDto) {
+        Result<Drug> checkResult = checkNonEmpty(drugDto);
+        if (checkResult.isError())
+            return checkResult;
+        if (drugDto.getSaleId() == null)
+            return Result.error("销售地点不能为空");
+
+        return drugService.addDrug(drugDto);
     }
 
 

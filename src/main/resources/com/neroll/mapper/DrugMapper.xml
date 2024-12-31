@@ -37,8 +37,19 @@
 
     </select>
     <insert id="addDrug">
-        insert into drug(drug_name, drug_info, drug_effect, drug_img, publisher)
+        insert into drug(drug_name, drug_info, drug_effect, drug_img, publisher,create_time,update_time)
         VALUES
-            (#{drugName},#{drugInfo},#{drugEffect},#{drugImg},#{publisher})
+            (#{drugName},#{drugInfo},#{drugEffect},#{drugImg},#{publisher},#{createTime},#{updateTime})
     </insert>
+    <select id="getDrugPublisher" resultType="String">
+        select realname
+        from account
+        where id=#{userId}
+    </select>
+    <select id="getDrugByName" resultType="com.neroll.pojo.Drug">
+        select * from drug where drug_name=#{drugName}
+    </select>
+    <select id="getLastInsertId" resultType="Long">
+        SELECT LAST_INSERT_ID()
+    </select>
 </mapper>
