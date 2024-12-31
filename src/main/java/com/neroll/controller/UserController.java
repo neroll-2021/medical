@@ -18,4 +18,13 @@ public class UserController {
         System.out.println(username + ", " + password);
         return userService.login(username, password);
     }
+
+    @PostMapping("/logout")
+    public Result<String> logout() {
+        if (!StpUtil.isLogin())
+            return Result.error("未登录");
+        StpUtil.logout();
+        return Result.success("已退出登录");
+    }
+
 }

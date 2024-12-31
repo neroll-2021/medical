@@ -1,10 +1,12 @@
 package com.neroll.controller;
 
 import com.neroll.pojo.Doctor;
+import com.neroll.pojo.DoctorVo;
 import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import com.neroll.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -14,8 +16,34 @@ public class DoctorController {
     @Autowired
     private DoctorService service;
 
+    private Result<Doctor> checkNonEmpty(Doctor doctor) {
+        if (doctor == null)
+            return Result.error("医师数据不能为空");
+
+        if (!StringUtils.hasText(doctor.getName()))
+            return Result.error("医师姓名不能为空");
+        if (doctor.getAge() == null)
+            return Result.error("医师年龄不能为空");
+        if (doctor.getSex() == null)
+            return Result.error("医师性别不能为空");
+        if (doctor.getLevelId() == null)
+            return Result.error("医师级别不能为空");
+        if (!StringUtils.hasText(doctor.getPhone()))
+            return Result.error("医师电话不能为空");
+        if (doctor.getTypeId() == null)
+            return Result.error("医师治疗类别不能为空");
+        if (!StringUtils.hasText(doctor.getHospital()))
+            return Result.error("医师所属医院不能为空");
+        if (doctor.getAccountId() == null)
+            return Result.error("医师账号 id 不能为空");
+        return Result.success();
+    }
+
     @GetMapping
-    public Result<PageInfo<Doctor>> searchDoctorByLevel(Integer pn, Integer size, String keyword) {
+    public Result<PageInfo<DoctorVo>> searchDoctorByLevel(@RequestParam("pn") Integer pn,
+                                                          @RequestParam("size") Integer size,
+                                                          @RequestParam(value = "keyword", defaultValue = "")
+                                                                      String keyword) {
         if (pn == null)
             return Result.error("页码不能为空");
         if (pn <= 0)
@@ -30,9 +58,24 @@ public class DoctorController {
 
     @PostMapping
     public Result<Doctor> addDoctor(@RequestBody Doctor doctor) {
-        if (doctor == null)
-            return Result.error("医师数据不能为空");
+        Result<Doctor> checkResult = checkNonEmpty(doctor);
+        if (checkResult.isError())
+            return checkResult;
 
         return service.addDoctor(doctor);
+    }
+
+    @PutMapping("/{id}")
+    public Result<Doctor> updateDoctor(@PathVariable Integer id, @RequestBody Doctor doctor) {
+        Result<Doctor> checkResult = checkNonEmpty(doctor);
+        if (checkResult.isError())
+            return checkResult;
+
+        return service.updateDoctor(id, doctor);
+    }
+
+    @DeleteMapping("/{id}")
+    public Result<Doctor> deleteDoctorById(@PathVariable Integer id) {
+        return service.deleteDoctorById(id);
     }
 }

@@ -43,4 +43,9 @@
         where company_name like #{name}
     </select>
 
+    <select id="getAllCompanyVo" resultType="com.neroll.pojo.CompanyVo">
+        select company_id as id, company_name as name
+        from drugcompany;
+    </select>
+
 </mapper>

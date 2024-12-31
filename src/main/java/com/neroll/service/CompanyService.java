@@ -2,6 +2,7 @@ package com.neroll.service;
 
 import com.neroll.mapper.CompanyMapper;
 import com.neroll.pojo.Company;
+import com.neroll.pojo.CompanyVo;
 import com.neroll.pojo.PageInfo;
 import com.neroll.pojo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +80,12 @@ public class CompanyService {
         info.setTotal(total);
         info.setList(companies);
         return Result.success("查询成功", info);
+    }
+
+    public Result<List<CompanyVo>> getAllCompanyVo() {
+        List<CompanyVo> companyVoList = mapper.getAllCompanyVo();
+        if (companyVoList == null)
+            return Result.error("查询失败");
+        return Result.success("查询成功", companyVoList);
     }
 }
