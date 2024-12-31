@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface DrugSaleMapper {
     Integer addDrugSale(DrugSale drugSale);
 
+    Integer deleteDrugSale(Long drugId);
+
 }

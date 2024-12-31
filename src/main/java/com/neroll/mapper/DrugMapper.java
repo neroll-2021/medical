@@ -27,4 +27,6 @@ public interface DrugMapper {
 
     String getDrugPublisher(Integer userId);
 
+    Integer deleteDrugById(Long drugId);
+
 }

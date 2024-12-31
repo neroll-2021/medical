@@ -52,4 +52,8 @@
     <select id="getLastInsertId" resultType="Long">
         SELECT LAST_INSERT_ID()
     </select>
+    <delete id="deleteDrugById">
+        delete from Drug
+        where drug_id=#{DrugId}
+    </delete>
 </mapper>

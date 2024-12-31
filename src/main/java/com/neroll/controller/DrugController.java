@@ -55,5 +55,10 @@ public class DrugController {
         return drugService.addDrug(drugDto);
     }
 
+    @DeleteMapping("/{id}")
+    public Result<Drug> deleteDrugById(@PathVariable Long id) {
+        return drugService.deleteDrugById(id);
+    }
+
 
 }
