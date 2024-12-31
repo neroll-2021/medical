@@ -15,7 +15,8 @@
     </select>
 
     <select id="getPolicyByPage" resultMap="companyPolicyMap">
-        select * from company_policy
+        select c.id, c.title, c.message, c.create_time, c.update_time, c.company_id, d.company_name as companyName
+        from company_policy as c left outer join drugcompany as d on c.company_id = d.company_id
         where title like #{keyword}
         limit #{offset}, #{count}
     </select>
