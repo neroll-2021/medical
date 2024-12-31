@@ -14,6 +14,17 @@
         select * from company_policy where id = #{id}
     </select>
 
+    <select id="getPolicyByPage" resultMap="companyPolicyMap">
+        select c.id, c.title, c.message, c.create_time, c.update_time, c.company_id, d.company_name as companyName
+        from company_policy as c left outer join drugcompany as d on c.company_id = d.company_id
+        where title like #{keyword}
+        limit #{offset}, #{count}
+    </select>
+
+    <select id="getPolicyCountNameLike" resultType="int">
+        select count(*) from company_policy where title like #{keyword}
+    </select>
+
     <insert id="savePolicy">
         insert into company_policy (title, message, company_id, create_time, update_time)
         values (#{title}, #{message}, #{companyId}, #{createTime}, #{updateTime});

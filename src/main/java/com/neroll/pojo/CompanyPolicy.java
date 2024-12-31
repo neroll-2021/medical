@@ -7,6 +7,7 @@ public class CompanyPolicy {
     private String title;
     private String message;
     private Integer companyId;
+    private String companyName;
     private LocalDateTime updateTime;
     private LocalDateTime createTime;
 
@@ -56,5 +57,13 @@ public class CompanyPolicy {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }
