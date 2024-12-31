@@ -11,5 +11,9 @@
         insert into drug_sale(drug_id, sale_id)
         values (#{drugId},#{saleId})
     </insert>
+    <delete id="deleteDrugSale">
+        delete from drug_sale
+        where drug_id=#{drugId}
+    </delete>
 
 </mapper>

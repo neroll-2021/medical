@@ -85,4 +85,19 @@ public class DrugService {
         }
         return Result.success("添加成功");
     }
+
+    // 删除药品
+    public Result<Drug> deleteDrugById(Long id) {
+        int line = drugMapper.deleteDrugById(id);
+        if (line == 0) {
+            return Result.error("删除失败");
+        }
+        int line2 = drugSaleMapper.deleteDrugSale(id);
+        if (line2 == 0) {
+            return Result.error("删除失败");
+        }
+        return Result.success("删除成功");
+    }
+
+
 }
