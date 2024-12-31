@@ -60,5 +60,24 @@ public class DrugController {
         return drugService.deleteDrugById(id);
     }
 
+    @PutMapping("/{id}")
+    public Result<Drug> updateDrug(@PathVariable Long id, @RequestBody DrugDto drugDto) {
+//        Result<Drug> deleteResult =drugService.deleteDrugById(id);
+//        if(deleteResult.isError()) {
+//            return Result.error("修改前的删除失败");
+//        }
+        Result<Drug> checkResult = checkNonEmpty(drugDto);
+        if (checkResult.isError()) {
+            return checkResult;
+        }
+        if (drugDto.getSaleId() == null) {
+            return Result.error("销售地点不能为空");
+        }
+        drugDto.setDrugId(id);
+        return drugService.updateDrug(drugDto);
+
+
+    }
+
 
 }

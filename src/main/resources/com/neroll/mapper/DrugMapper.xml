@@ -37,9 +37,11 @@
 
     </select>
     <insert id="addDrug">
-        insert into drug(drug_name, drug_info, drug_effect, drug_img, publisher,create_time,update_time)
+        insert into drug(drug_name, drug_info, drug_effect, drug_img, publisher,
+                         createtime,updatetime)
         VALUES
-            (#{drugName},#{drugInfo},#{drugEffect},#{drugImg},#{publisher},#{createTime},#{updateTime})
+            (#{drugName},#{drugInfo},#{drugEffect},#{drugImg},#{publisher},
+             #{createTime},#{updateTime})
     </insert>
     <select id="getDrugPublisher" resultType="String">
         select realname
@@ -56,4 +58,11 @@
         delete from Drug
         where drug_id=#{DrugId}
     </delete>
+    <update id="updateDrug">
+        update drug
+        set drug_name=#{drugName}, drug_info=#{drugInfo},
+            drug_effect=#{drugEffect}, drug_img=#{drugImg},
+            publisher=#{publisher},updatetime=#{updateTime}
+        where drug_id=#{drugId}
+    </update>
 </mapper>
