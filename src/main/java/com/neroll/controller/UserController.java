@@ -19,7 +19,7 @@ public class UserController {
         return userService.login(username, password);
     }
 
-    @GetMapping
+    @GetMapping("/is_login")
     public Result<String> isLogin() {
         if (StpUtil.isLogin())
             return Result.success("已登录");
