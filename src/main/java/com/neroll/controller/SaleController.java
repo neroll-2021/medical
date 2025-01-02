@@ -32,24 +32,19 @@ public class SaleController {
         if (!StringUtils.hasText(sale.getSalePhone())) {
             return Result.error("销售电话不能为空");
         }
-        if (sale.getLng() == null) {
-            return Result.error("lng不能为空");
-        }
-        if (sale.getLat() == null) {
-            return Result.error("Lat不能为空");
-        }
+
         return Result.success();
     }
 
     @GetMapping
-    public Result<PageInfo<Sale>> findSaleByPage(@RequestParam("pn") Integer pageNumber, @RequestParam("size") Integer pageSize) {
+    public Result<PageInfo<Sale>> findSaleByPage(@RequestParam("pn") Integer pageNumber, @RequestParam("size") Integer pageSize, @RequestParam("keyword") String keyword) {
         if (pageNumber == null) {
             return Result.error("页码不能为空");
         }
         if (pageSize == null) {
             return Result.error("页大小不能为空");
         }
-        return saleService.findSaleByPage(pageNumber, pageSize);
+        return saleService.findSaleByPage(pageNumber, pageSize, keyword);
     }
 
     @GetMapping("/all")

@@ -16,7 +16,7 @@ public class SaleService {
     @Autowired
     private SaleMapper saleMapper;
 
-    public Result<PageInfo<Sale>> findSaleByPage(Integer pageNumber, Integer pageSize) {
+    public Result<PageInfo<Sale>> findSaleByPage(Integer pageNumber, Integer pageSize, String keyword) {
         if (pageNumber <= 0) {
             return Result.error("页码错误");
         }
@@ -25,9 +25,10 @@ public class SaleService {
         }
         int offset = (pageNumber - 1) * pageSize;
         int count = pageSize;
+        String searchText = "%" + keyword + "%";
 
-        List<Sale> sales = saleMapper.getSaleByPage(offset, count);
-        Integer total = saleMapper.getSaleCount();
+        List<Sale> sales = saleMapper.getSaleByPage(offset, count, searchText);
+        Integer total = saleMapper.getSaleNameLikeCount(searchText);
         PageInfo<Sale> info = new PageInfo<>();
         info.setTotal(total);
         info.setList(sales);

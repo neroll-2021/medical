@@ -17,6 +17,7 @@ public class DrugService {
     @Autowired
     private DrugSaleMapper drugSaleMapper;
 
+
     public Result<PageInfo<DrugVo>> findDrugByPage(Integer pageNumber, Integer pageSize, String keyword) {
         if (pageNumber <= 0) {
             return Result.error("页码错误");
@@ -97,6 +98,35 @@ public class DrugService {
             return Result.error("删除失败");
         }
         return Result.success("删除成功");
+    }
+
+    // 修改药品信息
+    public Result<Drug> updateDrug(DrugDto drugDto) {
+        drugDto.setUpdateTime(LocalDateTime.now());
+        // 根据登录的用户账号添加发布者
+        Integer loginId = StpUtil.getLoginIdAsInt(); // 获取用户id
+        String s = drugMapper.getDrugPublisher(loginId); // 获取用户姓名
+        drugDto.setPublisher(s);
+        int line = drugMapper.updateDrug(drugDto);
+        if (line == 0) {
+            return Result.error("修改失败");
+        }
+        Long drugId = drugDto.getDrugId();
+        drugSaleMapper.deleteDrugSale(drugId);
+
+        // 遍历添加的销售药店的saleId列表，一个药品可以在多个药店售卖
+        for (Long id : drugDto.getSaleId()) {
+            DrugSale drugsale = new DrugSale();
+            drugsale.setDrugId(drugId);
+            drugsale.setSaleId(id);
+            int row = drugSaleMapper.addDrugSale(drugsale);
+            if (row == 0)
+                return Result.error("添加销售药店失败");
+        }
+
+
+        return Result.success("修改成功");
+
     }
 
 

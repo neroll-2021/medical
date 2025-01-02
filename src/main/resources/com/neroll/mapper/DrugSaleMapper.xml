@@ -15,5 +15,11 @@
         delete from drug_sale
         where drug_id=#{drugId}
     </delete>
+    <update id="updateDrugSale">
+        update drug_sale
+        set drug_id=#{drugId},sale_id=#{saleId}
+        where drug_id=#{drugId}
+
+    </update>
 
 </mapper>

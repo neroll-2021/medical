@@ -11,10 +11,13 @@
         <result column="updatetime" property="updateTime"/>
     </resultMap>
     <select id="getSaleByPage" resultMap="saleMap">
-        select * from sale limit #{offset}, #{count}
+        select * from sale
+            where sale_name like #{keyword}
+            limit #{offset}, #{count}
     </select>
-    <select id="getSaleCount" resultType="Integer">
+    <select id="getSaleNameLikeCount" resultType="Integer">
         select count( * ) from sale
+        where sale_name like #{keyword}
     </select>
     <insert id="saveSale">
         insert into
