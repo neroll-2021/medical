@@ -19,6 +19,13 @@ public class UserController {
         return userService.login(username, password);
     }
 
+    @GetMapping
+    public Result<String> isLogin() {
+        if (StpUtil.isLogin())
+            return Result.success("已登录");
+        return Result.error("未登录");
+    }
+
     @PostMapping("/logout")
     public Result<String> logout() {
         if (!StpUtil.isLogin())
