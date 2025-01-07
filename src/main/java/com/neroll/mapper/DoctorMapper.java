@@ -1,7 +1,9 @@
 package com.neroll.mapper;
 
+import com.neroll.pojo.BarDataVO;
 import com.neroll.pojo.Doctor;
 import com.neroll.pojo.DoctorVo;
+import com.neroll.pojo.PieDataVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,4 +24,9 @@ public interface DoctorMapper {
     int updateDoctor(Doctor doctor);
 
     int deleteDoctorById(@Param("id") Integer id);
+
+    List<BarDataVO> getBarData();
+
+    List<PieDataVO> getPieData();
+
 }

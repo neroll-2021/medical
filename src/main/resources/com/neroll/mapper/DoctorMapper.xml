@@ -24,6 +24,16 @@
         select count(*) from doctor as d left outer join doctor_level as dl on d.level_id = dl.id
             where dl.name like #{level}
     </select>
+    <select id="getBarData" resultType="com.neroll.pojo.BarDataVO">
+        SELECT lev, COUNT(id) AS count FROM (SELECT doctor.*, doctor_level.`name` as lev from doctor
+                                                                                                  RIGHT JOIN doctor_level ON doctor.level_id = doctor_level.id) vi
+        GROUP BY lev
+    </select>
+    <select id="getPieData" resultType="com.neroll.pojo.PieDataVO">
+        SELECT type as name, count(id) AS value
+        from (SELECT doctor.*, treat_type.`name` as type FROM doctor RIGHT JOIN treat_type ON doctor.type_id = treat_type.id) v
+        GROUP BY name;
+    </select>
 
     <insert id="saveDoctor">
         insert into
