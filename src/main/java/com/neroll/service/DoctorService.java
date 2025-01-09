@@ -5,6 +5,7 @@ import com.neroll.mapper.DoctorMapper;
 import com.neroll.mapper.TreatTypeMapper;
 import com.neroll.mapper.UserMapper;
 import com.neroll.pojo.*;
+import com.neroll.utils.MD5Utils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,20 +57,42 @@ public class DoctorService {
         return Result.success("查找成功", info);
     }
 
-    public Result<Doctor> addDoctor(Doctor doctor) {
-        if (!checkLevelId(doctor.getLevelId()))
+    public Result<Doctor> addDoctor(DoctorDto dto) {
+        if (!checkLevelId(dto.getLevelId()))
             return Result.error("医师级别错误");
-        if (!checkTreatTypeId(doctor.getTypeId()))
+        if (!checkTreatTypeId(dto.getTypeId()))
             return Result.error("医师治疗类别错误");
 
-        doctor.setCreateTime(LocalDateTime.now());
-        doctor.setUpdateTime(LocalDateTime.now());
+        User existed = userMapper.getUserByUsername(dto.getUsername());
+        if (existed != null)
+            return Result.error("用户名已存在");
 
-        User user = userMapper.getUserByAccountId(doctor.getAccountId());
-        if (user == null)
-            return Result.error("用户不存在");
+        if (!dto.getPassword().equals(dto.getConfirmPassword()))
+            return Result.error("两次输入密码不一致");
 
-        int line = doctorMapper.saveDoctor(doctor);
+        User user = new User();
+        user.setRealName(dto.getName());
+        user.setUname(dto.getUsername());
+
+        String md5password = MD5Utils.stringToMD5(dto.getPassword());
+        user.setPassword(md5password);
+        user.setPhoneNumber(dto.getPhone());
+        user.setUtype("ROLE_1");
+        LocalDateTime createTime = LocalDateTime.now();
+        user.setCreateTime(createTime);
+        user.setUpdateTime(createTime);
+
+        int line = userMapper.addUser(user);
+        if (line == 0)
+            return Result.error("添加账号失败");
+
+        Doctor doctor = new Doctor(dto);
+        doctor.setAccountId(userMapper.lastInsertId());
+        doctor.setCreateTime(createTime);
+        doctor.setUpdateTime(createTime);
+
+        line = doctorMapper.saveDoctor(doctor);
+
         if (line == 0)
             return Result.error("添加失败");
         return Result.success("添加成功");

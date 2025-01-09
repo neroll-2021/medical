@@ -21,4 +21,17 @@
     <select id="getUserByAccountId" resultMap="userMap">
         select * from account where id = #{id}
     </select>
+
+    <select id="getUserByUsername" resultMap="userMap">
+        select  * from account where uname = #{username}
+    </select>
+
+    <insert id="addUser">
+        insert into account (realname, uname, pwd, phonenumber, utype, updatetime, createtime)
+        values (#{realName}, #{uname}, #{password}, #{phoneNumber}, #{utype}, #{updateTime}, #{createTime});
+    </insert>
+
+    <select id="lastInsertId" resultType="int">
+        select last_insert_id()
+    </select>
 </mapper>

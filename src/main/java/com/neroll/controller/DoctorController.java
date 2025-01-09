@@ -1,9 +1,6 @@
 package com.neroll.controller;
 
-import com.neroll.pojo.Doctor;
-import com.neroll.pojo.DoctorVo;
-import com.neroll.pojo.PageInfo;
-import com.neroll.pojo.Result;
+import com.neroll.pojo.*;
 import com.neroll.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -16,12 +13,13 @@ public class DoctorController {
     @Autowired
     private DoctorService service;
 
-    private Result<Doctor> checkNonEmpty(Doctor doctor) {
+    private Result<Doctor> commonCheckNonEmpty(Doctor doctor) {
         if (doctor == null)
             return Result.error("医师数据不能为空");
 
         if (!StringUtils.hasText(doctor.getName()))
             return Result.error("医师姓名不能为空");
+
         if (doctor.getAge() == null)
             return Result.error("医师年龄不能为空");
         if (doctor.getSex() == null)
@@ -34,9 +32,34 @@ public class DoctorController {
             return Result.error("医师治疗类别不能为空");
         if (!StringUtils.hasText(doctor.getHospital()))
             return Result.error("医师所属医院不能为空");
-        if (doctor.getAccountId() == null)
-            return Result.error("医师账号 id 不能为空");
         return Result.success();
+    }
+
+    private Result<Doctor> checkNonEmpty(DoctorDto doctor) {
+        if (doctor == null)
+            return Result.error("医师数据不能为空");
+
+        if (!StringUtils.hasText(doctor.getName()))
+            return Result.error("医师姓名不能为空");
+        if (!StringUtils.hasText(doctor.getUsername()))
+            return Result.error("医师用户名不能为空");
+        if (!StringUtils.hasText(doctor.getPassword()))
+            return Result.error("医师密码不能为空");
+        if (!StringUtils.hasText(doctor.getConfirmPassword()))
+            return Result.error("请确认密码");
+
+        Doctor doctor1 = new Doctor(doctor);
+        return commonCheckNonEmpty(doctor1);
+    }
+
+    private Result<Doctor> checkNonEmpty(Doctor doctor) {
+        if (doctor == null)
+            return Result.error("医师数据不能为空");
+
+        if (!StringUtils.hasText(doctor.getName()))
+            return Result.error("医师姓名不能为空");
+
+        return commonCheckNonEmpty(doctor);
     }
 
     @GetMapping
@@ -57,7 +80,7 @@ public class DoctorController {
     }
 
     @PostMapping
-    public Result<Doctor> addDoctor(@RequestBody Doctor doctor) {
+    public Result<Doctor> addDoctor(@RequestBody DoctorDto doctor) {
         Result<Doctor> checkResult = checkNonEmpty(doctor);
         if (checkResult.isError())
             return checkResult;

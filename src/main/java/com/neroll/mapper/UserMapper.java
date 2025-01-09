@@ -11,4 +11,10 @@ public interface UserMapper {
     User getUserByNameAndPassword(@Param("username") String username, @Param("password") String password);
 
     User getUserByAccountId(@Param("id") Integer id);
+
+    User getUserByUsername(@Param("username") String username);
+
+    int addUser(User user);
+
+    int lastInsertId();
 }

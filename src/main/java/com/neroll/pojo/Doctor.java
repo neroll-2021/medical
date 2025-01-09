@@ -15,6 +15,16 @@ public class Doctor {
     private LocalDateTime createTime;
     private Integer accountId;
 
+    public Doctor(DoctorDto dto) {
+        this.name = dto.getName();
+        this.age = dto.getAge();
+        this.sex = dto.getSex();
+        this.levelId = dto.getLevelId();
+        this.typeId = dto.getTypeId();
+        this.phone = dto.getPhone();
+        this.hospital = dto.getHospital();
+    }
+
     public Integer getId() {
         return id;
     }
