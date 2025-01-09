@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DoctorService {
@@ -122,5 +125,30 @@ public class DoctorService {
         if (line == 0)
             return Result.error("医师不存在");
         return Result.success("删除成功");
+    }
+
+    public Result getBarData() {
+        List<BarDataVO> barDataList = doctorMapper.getBarData();
+
+        List<String> levList = new ArrayList<>();
+        List<Integer> countList = new ArrayList<>();
+
+        if (barDataList != null && barDataList.size() > 0) {
+            for (BarDataVO barData : barDataList) {
+                levList.add(barData.getLev());
+                countList.add(barData.getCount());
+            }
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("level", levList);
+        map.put("count", countList);
+
+        return new Result(200, "数据加载成功", map);
+    }
+
+    public Result getPieData() {
+        List<PieDataVO> pieDataList = doctorMapper.getPieData();
+        return new Result(200, "数据加载成功", pieDataList);
+
     }
 }

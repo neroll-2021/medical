@@ -101,4 +101,14 @@ public class DoctorController {
     public Result<Doctor> deleteDoctorById(@PathVariable Integer id) {
         return service.deleteDoctorById(id);
     }
+
+    @GetMapping("/bar")
+    public Result getBarData() {//获取数据面板的医生统计数据，柱状图
+        return service.getBarData();
+    }
+
+    @GetMapping("/pie")
+    public Result getPieData() {//获取数据面板的医生统计数据，饼状图
+        return service.getPieData();
+    }
 }
